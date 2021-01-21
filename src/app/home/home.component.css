@@ -1,0 +1,89 @@
+.editableData{
+    color: #000;
+    width: 90%;
+}
+
+.edit-btn{
+    display: flex;
+}
+
+.edit-icon{
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.addCategory{
+    background: #FF9188;
+    color: #fff;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.addCategory:hover{
+    opacity: 0.8;
+}
+
+.labelStyle{
+    padding-left: 35px !important;
+}
+
+.modal-header{
+    background: #FF9188;
+    color: #fff;
+}
+
+.modal-title{
+    margin-left: auto;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.close{
+  border: 1px solid #FF9188;
+  color: #FF9188;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.save{
+    cursor: pointer;
+    background: #FF9188;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.categoryName{
+    color: #383636;
+    padding-bottom: 10px;
+}
+
+.addCategoryName{
+    padding: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    color: #594f4f;
+    width: 70%;
+}
+
+.deleteQuestion{
+    border: 2px solid red;
+    box-sizing: border-box;
+    padding: 6px;
+    border-radius: 5px;
+    margin-left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: red;
+}
+
+.deleteQuestion:hover{
+    opacity: 0.6;
+}

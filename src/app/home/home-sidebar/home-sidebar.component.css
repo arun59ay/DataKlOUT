@@ -1,0 +1,12 @@
+.activeClass::before {
+    width: 106%;
+    height: 100%;
+    position: absolute;
+    background-color: #72B3FF;
+    border-radius: 0 18px 18px 0;
+    top: 0;
+    color: #fff;
+    left: 0;
+    content: "";
+    display: block;
+}

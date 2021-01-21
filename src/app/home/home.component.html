@@ -1,0 +1,159 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="dashboard_body flex-container" id="main">
+    <app-home-sidebar (selectedTab)="selectedTab($event)"></app-home-sidebar>
+    <div>
+        <div>
+            <div class="dashboard_heading">
+                <ul>
+                    <li><a href="#">Audit</a></li>
+                    <li><a href="#">Telecalling Script</a></li>
+                </ul>
+            </div>
+            <div class="telecalling">
+                <div class="telecalling_container">
+                    <div>
+                        <div class="telecalling_heading"> Introduction </div>
+                        <div class="telecalling_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Curabitur
+                            aliquet a enim eu cursus. Quisque interdum finibus odio</div>
+                    </div>
+                    <div *ngIf="tabSelected === 'firstTab'" class="addCategory" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                        Category</div>
+                    <!-- modal Template -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="modal-title" id="exampleModalLabel">Add Category</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="categoryName">Add The Category Name</label>
+                                    <input type="text" class="addCategoryName" [(ngModel)]="addCategoryName" />
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="close" data-bs-dismiss="modal">Close</div>
+                                    <div class="save" (click)="addCategory(addCategoryName)" data-bs-dismiss="modal">
+                                        Save</div>
+                                    <!-- <button type="button" class="btn btn-secondary" </button>
+                                    <button type="button" class="btn btn-primary"></button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --xxxxx-- -->
+                </div>
+
+
+                <div *ngIf="tabSelected === 'firstTab'">
+                    <!-- criteria first -->
+                    <div class="criteria_container" *ngFor="let item of categoryList; let i = index">
+                        <div class="criteria_heading_content">
+                            <label class="container labelStyle">{{item.category}}
+                                <input type="checkbox" checked="checked">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="criteria_list">
+                            <div class="criteria_list_heading">Please greet the customer as
+                                per the appropriate time</div>
+                            <div class="criteria_tags" *ngFor="let phrase of item.phrase, let i = index">
+                                <div class="criteria_tags_details">
+                                    <div class="criteria_tags_details_text">{{i + 1}}.
+                                        <input type="text" class="editableData" [(ngModel)]="editableData"
+                                            name="editableData" *ngIf="phrase?.show" />
+                                        <span *ngIf="!phrase?.show">{{phrase?.sentence}}</span>
+                                    </div>
+                                    <div (click)="showEditableInput(phrase)" *ngIf="!phrase?.show">
+                                        <img class="criteria_tags_details_icon" src="./assets/img/pencil.png" />
+                                    </div>
+                                </div>
+                                <div class="delete-btn" (click)="deletePhrases(phrase)" *ngIf="!phrase?.show">
+                                    <img class="delete-icon" src="./assets/img/close.png" />
+                                </div>
+                                <div class="edit-btn" *ngIf="phrase?.show">
+                                    <img class="edit-icon" src="./assets/img/check.png"
+                                        (click)="updatePhrasesData(phrase)" />
+                                    <img class="edit-icon" src="./assets/img/cancel.png"
+                                        (click)="showEditableInput(phrase)" />
+                                </div>
+                            </div>
+                            <div class="add-criteria">
+                                <div class="add-criteria-text">4.</div>
+                                <input type="text" class="add-criteria-input" placeholder="Start writing the next step"
+                                    [(ngModel)]="item.newCategory" />
+                                <div class="add-criteria-btn"
+                                    (click)="addCategoryItemsBtn(item.newCategory, item.category)">
+                                    <img class="add-criteria-icon" src="./assets/img/plus.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Tabs -->
+                <div *ngIf="tabSelected === 'secondTab'">
+                    <div class="criteria_container" *ngFor="let item of questionList, let i = index">
+                        <div class="criteria_heading_content d-flex align-item-center justify-content-between">
+                            <div>
+                                <label class="container labelStyle">{{item?.product}}
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="deleteQuestion" (click)="deleteItem(item)">Delete</div>
+                        </div>
+
+
+                        <div class="criteria_list">
+                            <div class="criteria_list_heading">Please greet the customer as
+                                per the appropriate time</div>
+
+                            <div *ngFor="let subjects of  item?.sub, let i = index">
+                                <div class="criteria_tags" >
+                                    <div class="criteria_tags_details">
+                                        <div class="criteria_tags_details_text">{{i + 1}}.
+                                            <input type="text" class="editableData" [(ngModel)]="subjects.key"
+                                                name="editableData" *ngIf="subjects?.show" />
+                                            <span *ngIf="!subjects?.show">{{subjects?.key}}</span>
+                                        </div>
+                                        <div (click)="showSubject(subjects, item)" *ngIf="!subjects?.show">
+                                            <img class="criteria_tags_details_icon" src="./assets/img/pencil.png" />
+                                        </div>
+                                    </div>
+                                    <div class="delete-btn" (click)="deleteItem(subjects, item)" *ngIf="!subjects?.show">
+                                        <img class="delete-icon" src="./assets/img/close.png" />
+                                    </div>
+                                    <div class="edit-btn" *ngIf="subjects?.show">
+                                        <img class="edit-icon" src="./assets/img/check.png"
+                                            (click)="updatesubjects(subjects, item)" />
+                                        <img class="edit-icon" src="./assets/img/cancel.png"
+                                            (click)="showEditableInput(subjects)" />
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            <div class="add-criteria">
+                                <div class="add-criteria-text">4.</div>
+                                <input type="text" class="add-criteria-input" [(ngModel)]="item.addNewQuestion.key" placeholder="Start writing the next step"
+                                     /> <!--[(ngModel)]="subjects.key"-->
+                                <div class="add-criteria-btn"
+                                    (click)="addQuestion(item)">
+                                    <img class="add-criteria-icon" src="./assets/img/plus.png" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

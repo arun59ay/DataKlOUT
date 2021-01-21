@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "sib-quality-audit"
+  "defaultProject": "sib-quality-audit",
+  "cli": {
+    "analytics": "7b543102-e2f6-4539-98ee-995c64f436a3"
+  }
 }
