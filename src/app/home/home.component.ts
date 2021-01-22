@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
     // this is get category api calling
     this.getCategoryList();
 
-
     // this function is for get questions 
     this.getQuestions();
   }
@@ -211,29 +210,52 @@ export class HomeComponent implements OnInit {
     let payload = {
       "question_id": item.id
     }
-    this.apiService.deleteQuestions(payload).subscribe( res => {
+    this.apiService.deleteQuestions(payload).subscribe(res => {
       this.getQuestions();
     })
-     console.log(payload);
+    console.log(payload);
+
+  }
+
+  deleteListItem(item, i) {
+    console.log(item, "first", i,);
+
+    item.subject = item.subject.filter((each, index) => {
+      return i != index
+    })
+
+    console.log(item.sub);
+    
+
+
+     let payload = {
+      'question_id': item.id,
+      'product': item.product,
+      'subject': item.subject,
+    }
+
+
+
+    this.apiService.putQuestions(payload).subscribe(res => {
+      console.log(res);
+      this.getQuestions();
+    })
 
   }
 
 
   addQuestion(item) {
-
-  
-    item.sub.push(item.addNewQuestion)
-
+    if(item.addNewQuestion.key){
+      item.sub.push(item.addNewQuestion)
+    }
     let payload = {
       'question_id': item.id,
       'product': item.product,
       'subject': []
     }
-
     item.sub.map(ele => {
       payload.subject.push(ele.key);
     })
-
     this.apiService.putQuestions(payload).subscribe(res => {
       console.log(res);
       this.getQuestions();

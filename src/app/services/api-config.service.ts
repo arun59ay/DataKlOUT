@@ -23,6 +23,13 @@ export const apiConfig = {
     createQuestions: 'agent_script/',
     putQuestions: 'agent_script/',
     deleteQuestions: 'agent_script/',
-  }
+  },
 
+  report: {
+     performanceReport: 'agent_script/',
+     phraseQualifiedCallList: 'agent_script/',
+     disqualifiedCallList: 'agent_script/',
+     questionQualifiedCallList: 'agent_script/',
+     questionDisqualifiedCallList: 'agent_script/',
+  }
 }

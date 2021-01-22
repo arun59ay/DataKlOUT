@@ -124,7 +124,7 @@
                                             <img class="criteria_tags_details_icon" src="./assets/img/pencil.png" />
                                         </div>
                                     </div>
-                                    <div class="delete-btn" (click)="deleteItem(subjects, item)" *ngIf="!subjects?.show">
+                                    <div class="delete-btn" (click)="deleteListItem(item, i)" *ngIf="!subjects?.show">
                                         <img class="delete-icon" src="./assets/img/close.png" />
                                     </div>
                                     <div class="edit-btn" *ngIf="subjects?.show">

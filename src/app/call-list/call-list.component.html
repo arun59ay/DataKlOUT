@@ -23,7 +23,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {{allData | json}}
+          <!-- <tr>
             <td data-label="Id">2</td>
             <td data-label="Customer">John Doe</td>
             <td data-label="Agent">Jack D</td>
@@ -32,18 +33,18 @@
             <td data-label="Opportunity">Yes</td>
             <td data-label="Customer Intent"><p class="positive">Positive</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
-          </tr>
-          <tr>
-            <td data-label="Id">3</td>
-            <td data-label="Customer">Brian Greene</td>
-            <td data-label="Agent">Emma W</td>
-            <td data-label="Service">Card</td>
+          </tr> -->
+          <tr *ngFor="let item of allData, let i of index"> 
+            <td data-label="Id">{{i + 1}}</td>
+            <td data-label="Customer">{{item?.customer}}</td>
+            <td data-label="Agent">{{item?.agent}}</td>
+            <td data-label="Service">{{item?.product}}</td>
             <td data-label="Feedback">No</td>
             <td data-label="Opportunity">No</td>
-            <td data-label="Customer Intent"><p class="negative">Negative</p></td>
+            <td data-label="Customer Intent"><p class="negative">{{item.intent}}</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td data-label="Id">2</td>
             <td data-label="Customer">John Doe</td>
             <td data-label="Agent">Jack D</td>
@@ -52,7 +53,7 @@
             <td data-label="Opportunity">Yes</td>
             <td data-label="Customer Intent"><p class="positive">Positive</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>

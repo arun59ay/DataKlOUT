@@ -61,4 +61,22 @@ export class ApiService {
     return this.http.delete(this.baseUrl + apiConfig.askQuestions.deleteQuestions + this.userID + '/' + 'questions/', payload)
   }
 
+  //  api service for report 
+
+  performanceReport(){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'performance_reports/')
+  }
+  phraseQualifiedCallList(id){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'qualified_call_list/')
+  }
+  disqualifiedCallList(id){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'disqualified_call_list/')
+  }
+  questionQualifiedCallList(id){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'qualified_call_list/')
+  }
+  questionDisqualifiedCallList(id){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'disqualified_call_list/')
+  }
+
 }
