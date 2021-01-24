@@ -20,6 +20,8 @@ export class CallStatisticsComponent implements OnInit {
   disqualifiedCallList: any;
   performanceReport: any;
   totalCalls: any;
+  phraseData: any;
+  showMainContent: boolean = false;
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -30,29 +32,29 @@ export class CallStatisticsComponent implements OnInit {
       console.log(" performance Report", res);
       this.performanceReport = res;
 
-      for (let key in res.phrase_report) {
+      for (let key in this.performanceReport.phrase_report) {
         let obj = {
           key: key,
-          failed: res.phrase_report[key].failed,
-          passed: res.phrase_report[key].passed
+          failed: this.performanceReport.phrase_report[key].failed,
+          passed: this.performanceReport.phrase_report[key].passed
         }
 
         this.phrase_report.push(obj);
       }
       console.log(this.phrase_report)
 
-      for (let key in res.question_report) {
+      for (let key in this.performanceReport.question_report) {
         let obj = {
           key: key,
-          failed: res.question_report[key].failed,
-          passed: res.question_report[key].passed
+          failed: this.performanceReport.question_report[key].failed,
+          passed: this.performanceReport.question_report[key].passed
         }
 
         this.question_report.push(obj);
       }
       console.log(this.question_report)
 
-      
+
       if (res) {
 
         this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls;
@@ -64,59 +66,55 @@ export class CallStatisticsComponent implements OnInit {
 
     })
 
-    // this.apiService.getPhrases().subscribe(res => {
-
-    //   res.forEach(element => {
-    //     this.apiService.phraseQualifiedCallList(element.id).subscribe(res => {
-    //       // console.log("res from phrase", res);
-    //       this.disqualifiedCallList = res;
-    //       res.forEach(each => {
-    //         this.phraseDetails.push(each)
-    //       });
-    //     })
-    //   });
-
-    //   res.forEach(element => {
-    //     this.apiService.disqualifiedCallList(element.id).subscribe(res => {
-    //       // console.log("res from phrase", res);
-    //       this.disqualifiedCallList = res;
-    //       res.forEach(each => {
-    //         this.phrasedisqualified.push(each)
-    //       });
-    //     })
-    //   });
-    // })
-
-    // // questioner api calling
-
-    // this.apiService.getQuestions().subscribe(res => {
-    //   res.forEach(element => {
-    //     this.apiService.questionQualifiedCallList(element.id).subscribe(res => {
-    //       res.forEach(each => {
-    //         this.questionDetails.push(each)
-    //       });
-    //     })
-    //   });
-
-    //   res.forEach(element => {
-    //     this.apiService.questionDisqualifiedCallList(element.id).subscribe(res => {
-    //       res.forEach(each => {
-    //         this.questiondisqualified.push(each)
-    //       });
-    //     })
-    //   });
-
-
-
-    // console.log("res from phraseDetails", this.phraseDetails);
-    // console.log("res from phrasedisqualified", this.phrasedisqualified);
-    // console.log("res from questionDetails", this.questionDetails);
-    // console.log("res from questiondisqualified", this.questiondisqualified);
-
-
-    // })
 
   }
+
+  navigate(category: any) {
+    console.log(category);
+
+    let questionData: any[] = [];
+    if (category) {
+      this.apiService.getPhrases().subscribe(res => {
+        console.log("res", res);
+        let phrases: any = res
+        phrases.forEach((each: any) => {
+          if (each.category === category) {
+               questionData.push(each)
+          }
+        })
+        console.log("phrase", questionData);
+        if(questionData && questionData.length){
+          this.router.navigate(['/call-list'], {queryParams: {category: category, id: questionData[0].id}})
+        }
+      })
+
+      this.apiService.getQuestions().subscribe(res => {
+        // console.log("question", res);
+        let questions: any = res
+        questions.map((each: any) => {
+          each.subject.forEach((element: any) => {
+            if (element == category) {
+              questionData.push(each);
+            }
+          });
+        })
+        console.log("questions", questionData);
+        if(questionData && questionData.length){
+          this.router.navigate(['/call-list'], {queryParams: {category: category, id: questionData[0].id}})
+        }
+      })
+      
+    }
+
+
+    // console.log(questionData[0].id);
+    
+  }
+
+
+   showToggle(toggle){
+     this.showMainContent = toggle
+   }
 
   toggleSidebar() {
     if (this.mini) {
@@ -133,6 +131,6 @@ export class CallStatisticsComponent implements OnInit {
   }
 
 
-  
+
 
 }

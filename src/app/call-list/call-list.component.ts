@@ -8,14 +8,12 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./call-list.component.css']
 })
 export class CallListComponent implements OnInit {
-  currentCategory: any;
   phraseDetails: any = [];
   phrasedisqualified: any = [];
   questionDetails: any = [];
   questiondisqualified: any = [];
   allListDataFilter: any = [];
   phraseData: any = [];
-  questionData: any = [];
   allData: any = [];
 
 
@@ -27,60 +25,61 @@ export class CallListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(res => {
-      this.currentCategory = res.category;
-      console.log(this.currentCategory);
+      let category: any = res.category;
+      let id: any = res.id;
+      console.log("category", category);
+      console.log("id", id);
+      this.filterData(id);
     })
-
-
-
-    this.categoryApiCall();
-
-
-
-
-
   }
 
 
-  categoryApiCall() {
-    this.apiService.getPhrases().subscribe(res => {
-      console.log("prases", res);
-      this.phraseData = res.filter(each => {
-        return each.catagory == this.currentCategory;
-      })
-    })
+  // categoryApiCall(category: any) {
+  //   let questionData: any[] = [];
+  //   this.apiService.getPhrases().subscribe(res => {
+  //     let phrases: any = res
+  //     this.phraseData = phrases.filter((each: any) => {
+  //       return each.catagory == category;
+  //     })
+  //     console.log("phrase", this.phraseData);
+      
+  //   })
 
-    this.apiService.getQuestions().subscribe(res => {
-      console.log("question", res);
-      res.map(each => {
-        each.subject.forEach(element => {
-          if (element == this.currentCategory) {
-            this.questionData.push(each)
-          }
-        });
-      })
-    })
-
-    if (this.questionData) {
-      this.filterData();
-    }
-
-  }
-
+  //   this.apiService.getQuestions().subscribe(res => {
+  //     let questions: any = res
+  //     questions.map((each: any) => {
+  //       each.subject.forEach((element: any) => {
+  //         if (element == category) {
+  //           questionData.push(each);
+  //         }
+  //       });
+  //     })
+  //     if (questionData && questionData.length) {
+  //       this.filterData(questionData);
+  //     }
+  //     console.log("quest", questionData);
+  //   })
+  // }
 
 
-  filterData() {
-    this.apiService.disqualifiedCallList(this.questionData[0].id).subscribe(res => {
-      res.forEach(element => {
+
+  filterData(id: any) {
+    this.apiService.disqualifiedCallList(id).subscribe(res => {
+      let disqualifiedCallList: any = res
+      disqualifiedCallList.forEach((element: any) => {
         this.allData.push(element)
       });
+      console.log("alldata", this.allData);
     })
-    this.apiService.questionDisqualifiedCallList(this.questionData[0].id).subscribe(res => {
-      // console.log("this is diqualified data for list 2", res);
-      res.forEach(element => {
-        this.allData.push(element)
+    this.apiService.questionDisqualifiedCallList(id).subscribe(res => {
+      console.log(res);
+      let questionCallList: any = res;
+      questionCallList.forEach((element: any) => {
+        this.allData.push(element);
       });
+      console.log("alldata", this.allData);
     })
+    
 
   }
 

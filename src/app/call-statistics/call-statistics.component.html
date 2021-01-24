@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="col-sm-4" >
-        <div class="col_info_col verification_call cursor" (click)="showMainContent=!showMainContent">
+        <div class="col_info_col verification_call cursor" (click)="showToggle(true)">
           <div class="col_info_col_content">
             <p>Verfication Passed</p>
             <h2>{{performanceReport?.varified_calls}}</h2>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="col_info_col failed_call cursor" (click)="showMainContent=!showMainContent">
+        <div class="col_info_col failed_call cursor" (click)="showToggle(false)">
           <div class="col_info_col_content">
             <p>Verfication Failed</p>
             <h2>{{performanceReport?.verification_failed_calls}}</h2>
@@ -45,14 +45,14 @@
       <h3>Verification Passed</h3>
       <ul>
         <li *ngFor="let item of phrase_report">
-          <div class="pie_chart_info_col" *ngIf="item.passed > 0" [routerLink]="['/call-list']" [queryParams]="{category: item.key}">
+          <div class="pie_chart_info_col" *ngIf="item.passed > 0" (click)="navigate(item.key)">
             <div class="pie_chart_color_box"></div>
             <p>{{item?.key}}</p>
             <h4>{{item?.passed}}</h4>
           </div>
         </li>
         <li *ngFor="let item of question_report">
-          <div class="pie_chart_info_col" *ngIf="item.passed > 0" [routerLink]="['/call-list']" [queryParams]="{category: item.key}">
+          <div class="pie_chart_info_col" *ngIf="item.passed > 0" (click)="navigate(item.key)">
             <div class="pie_chart_color_box"></div>
             <p>{{item?.key}}</p>
             <h4>{{item?.passed}}</h4>
@@ -64,14 +64,15 @@
       <h3>Verification Failed</h3>
       <ul>
         <li *ngFor="let item of phrase_report">
-          <div class="pie_chart_info_col" *ngIf="item.failed > 0" [routerLink]="['/call-list']" [queryParams]="{category: item.key}" >
+          <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item.key)" >
+            <!-- [routerLink]="['/call-list']" [queryParams]="{category: item.key}" -->
             <div class="pie_chart_color_box"></div>
             <p>{{item?.key}}</p>
             <h4>{{item?.failed}}</h4>
           </div>
         </li>
         <li *ngFor="let item of question_report">
-          <div class="pie_chart_info_col" *ngIf="item.failed > 0" [routerLink]="['/call-list']" [queryParams]="{category: item.key}">
+          <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item.key)">
             <div class="pie_chart_color_box"></div>
             <p>{{item?.key}}</p>
             <h4>{{item?.failed}}</h4>

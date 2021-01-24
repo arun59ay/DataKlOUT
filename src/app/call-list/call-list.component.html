@@ -1,30 +1,29 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <div class="dashboard_body" id="main">
-    <div class="dashboard_heading">
-      <ul>
-        <li><a href="#">Audit</a></li>
-        <li><a href="#">Verification Failed  (Agent Name)</a></li>
-      </ul>
-    </div>
-    <div class="customer_table">
-      <h2 class="customer_table_heading"><span><img src="assets/img/customer_call_icon.png" alt=""></span> Calls</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" data-label="Id">ID</th>
-            <th scope="col" data-label="Customer">Customer</th>
-            <th scope="col" data-label="Agent">Agent</th>
-            <th scope="col" data-label="Service">Product/Service<br> category</th>
-            <th scope="col" data-label="Feedback">Feedback</th>
-            <th scope="col" data-label="Opportunity">Opportunity</th>
-            <th scope="col" data-label="Customer Intent">Customer Intent</th>
-            <th scope="col" data-label="call_btn"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{allData | json}}
-          <!-- <tr>
+  <div class="dashboard_heading">
+    <ul>
+      <li><a href="#">Audit</a></li>
+      <li><a href="#">Verification Failed (Agent Name)</a></li>
+    </ul>
+  </div>
+  <div class="customer_table">
+    <h2 class="customer_table_heading"><span><img src="assets/img/customer_call_icon.png" alt=""></span> Calls</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" data-label="Id">ID</th>
+          <th scope="col" data-label="Customer">Customer</th>
+          <th scope="col" data-label="Agent">Agent</th>
+          <th scope="col" data-label="Service">Product/Service<br> category</th>
+          <th scope="col" data-label="Feedback">Feedback</th>
+          <th scope="col" data-label="Opportunity">Opportunity</th>
+          <th scope="col" data-label="Customer Intent">Customer Intent</th>
+          <th scope="col" data-label="call_btn"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr>
             <td data-label="Id">2</td>
             <td data-label="Customer">John Doe</td>
             <td data-label="Agent">Jack D</td>
@@ -34,17 +33,19 @@
             <td data-label="Customer Intent"><p class="positive">Positive</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
           </tr> -->
-          <tr *ngFor="let item of allData, let i of index"> 
+        <div *ngFor="let item of allData, let i = index">
+          <tr *ngIf="allData.length">
             <td data-label="Id">{{i + 1}}</td>
             <td data-label="Customer">{{item?.customer}}</td>
             <td data-label="Agent">{{item?.agent}}</td>
             <td data-label="Service">{{item?.product}}</td>
             <td data-label="Feedback">No</td>
             <td data-label="Opportunity">No</td>
-            <td data-label="Customer Intent"><p class="negative">{{item.intent}}</p></td>
+            <td data-label="Customer Intent"><p class="negative">{{item?.intent?.positive | number:'0.1-2'}}</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
           </tr>
-          <!-- <tr>
+        </div>
+            <!-- <tr>
             <td data-label="Id">2</td>
             <td data-label="Customer">John Doe</td>
             <td data-label="Agent">Jack D</td>
@@ -54,7 +55,7 @@
             <td data-label="Customer Intent"><p class="positive">Positive</p></td>
             <td data-label=""><a href="#">Call Insights</a></td>
           </tr> -->
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
+  </div>
 </div>
