@@ -5,3 +5,7 @@
 .cursor:hover{
     opacity: 0.6;
 }
+
+.pie_chart_info > ul > li{
+    cursor: pointer;
+}

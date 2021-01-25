@@ -71,7 +71,7 @@ export class CallStatisticsComponent implements OnInit {
 
   showToggle(toggle: any, name: any) {
     console.log(name);
-    
+
 
     this.showMainContent = toggle;
     this.verificationType = name;
@@ -166,18 +166,27 @@ export class CallStatisticsComponent implements OnInit {
         }]
       },
       options: {
+        legend: {
+          labels: {
+            fontSize: 30,
+          },
+        },
+        hover: {
+          mode: 'label',
+          onHover: function(e, el) {
+            $("#pieChart").css("cursor", el[0] ? "pointer" : "default");
+          }
+        },
         title: {
           text: 'Bar Chart',
           display: false,
+          // titleFontSize: 50,
         },
-
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
+        tooltips: {
+          titleFontSize: 30,
+          bodyFontSize: 30,
+          mode: 'label',
+        },
       }
     })
   }
