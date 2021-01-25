@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-declare var $: any;
+import { ActivatedRoute, Router } from '@angular/router';
+// declare var $: any;
 
 @Component({
   selector: 'app-sidebar',
@@ -10,9 +10,10 @@ declare var $: any;
 export class SidebarComponent implements OnInit {
 
   mini:boolean = true;
+  currentRoute: any;
   // selectedItem: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   // mainNavClick(event, newValue) {
   //   console.log(newValue);
@@ -21,6 +22,8 @@ export class SidebarComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    console.log(this.router.url);
+    this.currentRoute = this.router.url;
   }
 
   toggleSidebar() {

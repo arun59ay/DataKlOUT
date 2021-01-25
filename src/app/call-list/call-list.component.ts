@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { verify } from 'crypto';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class CallListComponent implements OnInit {
   allListDataFilter: any = [];
   phraseData: any = [];
   allData: any = [];
+  category: any;
+  verificationType: any;
 
 
   constructor(
@@ -27,39 +30,14 @@ export class CallListComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       let category: any = res.category;
       let id: any = res.id;
-      console.log("category", category);
-      console.log("id", id);
-      this.filterData(id);
+      this.category = res.category;
+      this.verificationType= res.verificationType;
+      // console.log("category", category);
+      // console.log("id", this.id);
+      // console.log("verification type", this.verificationType);
+      this.filterData(category);
     })
   }
-
-
-  // categoryApiCall(category: any) {
-  //   let questionData: any[] = [];
-  //   this.apiService.getPhrases().subscribe(res => {
-  //     let phrases: any = res
-  //     this.phraseData = phrases.filter((each: any) => {
-  //       return each.catagory == category;
-  //     })
-  //     console.log("phrase", this.phraseData);
-      
-  //   })
-
-  //   this.apiService.getQuestions().subscribe(res => {
-  //     let questions: any = res
-  //     questions.map((each: any) => {
-  //       each.subject.forEach((element: any) => {
-  //         if (element == category) {
-  //           questionData.push(each);
-  //         }
-  //       });
-  //     })
-  //     if (questionData && questionData.length) {
-  //       this.filterData(questionData);
-  //     }
-  //     console.log("quest", questionData);
-  //   })
-  // }
 
 
 
@@ -79,7 +57,7 @@ export class CallListComponent implements OnInit {
       });
       console.log("alldata", this.allData);
     })
-    
+
 
   }
 

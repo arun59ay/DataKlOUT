@@ -306,13 +306,13 @@ body.navopen #nav_sidebar ul li.active a span img {
       background-color: #C4DDFB;
   }
   
-  /* .sidebar a {
+  .sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
-  } */
+  }
   
   .sidebar ul li a:hover {
     color: #fff;
@@ -1312,6 +1312,7 @@ canvas {
     margin-right: 30px;
     margin-top: 12px;
     position: relative;
+    z-index: 0;
 }
 
 .sidebar-menu-items {

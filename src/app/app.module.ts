@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { HomeSidebarComponent } from './home/home-sidebar/home-sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CallListComponent,
     CallStatisticsComponent,
     HomeComponent,
-    HomeSidebarComponent
+    HomeSidebarComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { Chart } from 'chart.js';
 declare var $: any;
 
 @Component({
@@ -22,6 +23,10 @@ export class CallStatisticsComponent implements OnInit {
   totalCalls: any;
   phraseData: any;
   showMainContent: boolean = false;
+  verificationType: any = 'verification failed';
+  PieChart = [];
+  chartDataLabel: any[] = [];
+  chartDataNumber: any[] = [];
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -52,21 +57,26 @@ export class CallStatisticsComponent implements OnInit {
 
         this.question_report.push(obj);
       }
-      console.log(this.question_report)
-
 
       if (res) {
-
         this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls;
         console.log(this.totalCalls);
-
-
-
       }
-
+      this.chartFilterData();
     })
 
+  }
 
+
+
+  showToggle(toggle: any, name: any) {
+    console.log(name);
+    
+
+    this.showMainContent = toggle;
+    this.verificationType = name;
+    console.log("verificationType*******", this.verificationType);
+    this.chartFilterData();
   }
 
   navigate(category: any) {
@@ -79,12 +89,12 @@ export class CallStatisticsComponent implements OnInit {
         let phrases: any = res
         phrases.forEach((each: any) => {
           if (each.category === category) {
-               questionData.push(each)
+            questionData.push(each)
           }
         })
         console.log("phrase", questionData);
-        if(questionData && questionData.length){
-          this.router.navigate(['/call-list'], {queryParams: {category: category, id: questionData[0].id}})
+        if (questionData && questionData.length) {
+          this.router.navigate(['/call-list'], { queryParams: { category: category, id: questionData[0].id, verificationType: this.verificationType } })
         }
       })
 
@@ -99,22 +109,18 @@ export class CallStatisticsComponent implements OnInit {
           });
         })
         console.log("questions", questionData);
-        if(questionData && questionData.length){
-          this.router.navigate(['/call-list'], {queryParams: {category: category, id: questionData[0].id}})
+        if (questionData && questionData.length) {
+          this.router.navigate(['/call-list'], { queryParams: { category: category, id: questionData[0].id, verificationType: this.verificationType } })
         }
       })
-      
+
     }
 
 
     // console.log(questionData[0].id);
-    
+
   }
 
-
-   showToggle(toggle){
-     this.showMainContent = toggle
-   }
 
   toggleSidebar() {
     if (this.mini) {
@@ -130,6 +136,105 @@ export class CallStatisticsComponent implements OnInit {
     }
   }
 
+  chart() {
+    console.log(this.performanceReport);
+
+    this.PieChart = new Chart('pieChart', {
+      type: 'pie',
+      data: {
+        labels: this.chartDataLabel,
+        datasets: [{
+          label: 'data first',
+          data: this.chartDataNumber,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        title: {
+          text: 'Bar Chart',
+          display: false,
+        },
+
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    })
+  }
+
+
+
+  chartFilterData() {
+
+    console.log("this is verification +++>", this.verificationType);
+
+
+    if (this.verificationType === 'verification failed') {
+      this.chartDataLabel = [];
+      this.chartDataNumber = [];
+
+      if (this.phrase_report && this.phrase_report.length) {
+        this.phrase_report.map((element: any) => {
+          if (element.failed > 0) {
+            this.chartDataLabel.push(element.key)
+            this.chartDataNumber.push(element.failed)
+          }
+        });
+      }
+
+      if (this.question_report && this.question_report.length) {
+        this.question_report.map((element: any) => {
+          if (element.failed > 0) {
+            this.chartDataLabel.push(element.key)
+            this.chartDataNumber.push(element.failed)
+          }
+        });
+      }
+
+    } else if (this.verificationType === 'verification passed') {
+      this.chartDataLabel = [];
+      this.chartDataNumber = [];
+      if (this.phrase_report && this.phrase_report.length) {
+        this.phrase_report.map((element: any) => {
+          if (element.passed > 0) {
+            this.chartDataLabel.push(element.key)
+            this.chartDataNumber.push(element.passed)
+          }
+        });
+      }
+
+      if (this.question_report && this.question_report.length) {
+        this.question_report.map((element: any) => {
+          if (element.passed > 0) {
+            this.chartDataLabel.push(element.key)
+            this.chartDataNumber.push(element.passed)
+          }
+        });
+      }
+
+    }
+    this.chart();
+  }
 
 
 
