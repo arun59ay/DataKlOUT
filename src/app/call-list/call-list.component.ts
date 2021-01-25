@@ -30,12 +30,10 @@ export class CallListComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       let category: any = res.category;
       let id: any = res.id;
-      this.category = res.category;
+      this.category = res.category.split('/')[0];
       this.verificationType= res.verificationType;
-      // console.log("category", category);
-      // console.log("id", this.id);
-      // console.log("verification type", this.verificationType);
-      this.filterData(category);
+      this.filterData(this.category);
+      console.log("category =========>", this.category);
     })
   }
 

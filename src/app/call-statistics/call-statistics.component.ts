@@ -138,7 +138,6 @@ export class CallStatisticsComponent implements OnInit {
 
   chart() {
     console.log(this.performanceReport);
-
     this.PieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
@@ -168,7 +167,7 @@ export class CallStatisticsComponent implements OnInit {
       options: {
         legend: {
           labels: {
-            fontSize: 30,
+            fontSize: 50,
           },
         },
         hover: {
@@ -183,8 +182,8 @@ export class CallStatisticsComponent implements OnInit {
           // titleFontSize: 50,
         },
         tooltips: {
-          titleFontSize: 30,
-          bodyFontSize: 30,
+          titleFontSize: 50,
+          bodyFontSize: 50,
           mode: 'label',
         },
       }
