@@ -42,21 +42,41 @@ export class CallListComponent implements OnInit {
 
 
   filterData(id: any) {
-    this.apiService.disqualifiedCallList(id).subscribe(res => {
-      let disqualifiedCallList: any = res
-      disqualifiedCallList.forEach((element: any) => {
-        this.allData.push(element)
-      });
-      console.log("alldata", this.allData);
-    })
-    this.apiService.questionDisqualifiedCallList(id).subscribe(res => {
-      console.log(res);
-      let questionCallList: any = res;
-      questionCallList.forEach((element: any) => {
-        this.allData.push(element);
-      });
-      console.log("alldata", this.allData);
-    })
+    console.log("this is verifiction type", this.verificationType);
+    
+    if(this.verificationType == 'verification failed'){
+      this.apiService.disqualifiedCallList(id).subscribe(res => {
+        let disqualifiedCallList: any = res
+        disqualifiedCallList.forEach((element: any) => {
+          this.allData.push(element)
+        });
+        console.log("alldata", this.allData);
+      })
+      this.apiService.questionDisqualifiedCallList(id).subscribe(res => {
+        console.log(res);
+        let questionCallList: any = res;
+        questionCallList.forEach((element: any) => {
+          this.allData.push(element);
+        });
+        console.log("alldata", this.allData);
+      })
+    }else if( this.verificationType == 'verification passed' ){
+      this.apiService.phraseQualifiedCallList(id).subscribe(res => {
+        let disqualifiedCallList: any = res
+        disqualifiedCallList.forEach((element: any) => {
+          this.allData.push(element)
+        });
+        console.log("alldata", this.allData);
+      })
+      this.apiService.questionQualifiedCallList(id).subscribe(res => {
+        console.log(res);
+        let questionCallList: any = res;
+        questionCallList.forEach((element: any) => {
+          this.allData.push(element);
+        });
+        console.log("alldata", this.allData);
+      })
+    }
 
 
   }

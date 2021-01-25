@@ -69,14 +69,14 @@ export class ApiService {
   phraseQualifiedCallList(id){
       return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'qualified_call_list/')
   }
+  questionQualifiedCallList(id){
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'question/' + id + '/' + 'qualified_call_list/')
+  }
   disqualifiedCallList(id){
       return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'disqualified_call_list/')
   }
-  questionQualifiedCallList(id){
-      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'qualified_call_list/')
-  }
   questionDisqualifiedCallList(id){
-      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'phrase/' + id + '/' + 'disqualified_call_list/')
+      return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'question/' + id + '/' + 'disqualified_call_list/')
   }
 
 }

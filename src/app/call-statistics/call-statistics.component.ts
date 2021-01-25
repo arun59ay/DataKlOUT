@@ -235,7 +235,4 @@ export class CallStatisticsComponent implements OnInit {
     }
     this.chart();
   }
-
-
-
 }
