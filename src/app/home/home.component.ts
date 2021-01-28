@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { threadId } from 'worker_threads';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -17,6 +16,10 @@ export class HomeComponent implements OnInit {
   phraseList: any;
   tabSelected: any = 'firstTab';
   questionList: any;
+  getCategoryListItem: any;
+  updatePhrasesDataList: Object;
+  exampleModal: any;
+  addCategoryName: '';
 
   constructor(
     private apiService: ApiService
@@ -36,7 +39,8 @@ export class HomeComponent implements OnInit {
 
     this.apiService.getCategory().subscribe(res => {
       console.log(res);
-      res.category_list.map(el => {
+      this.getCategoryListItem = res;
+      this.getCategoryListItem.category_list.map(el => {
         let obj = {}
         obj['category'] = el;
         obj['phrase'] = [];
@@ -55,7 +59,7 @@ export class HomeComponent implements OnInit {
     this.apiService.getPhrases().subscribe(res => {
       console.log("res from phrase", res);
 
-      let phraseData = res;
+      let phraseData: any = res;
       phraseData.map(el => {
         this.categoryList.map(ct => {
           if (ct.category === el.category) {
@@ -81,7 +85,7 @@ export class HomeComponent implements OnInit {
   createPhrases(payload) {
     this.apiService.createPhrases(payload).subscribe(res => {
       console.log("this is create phrases res", res);
-      if (res.message == 'success') {
+      if (res) {
         this.categoryList = [];
         this.getCategoryList();
       }
@@ -98,7 +102,8 @@ export class HomeComponent implements OnInit {
 
     this.apiService.updatePhrases(payload).subscribe(res => {
       console.log(res);
-      if (res.message == 'success') {
+      this.updatePhrasesDataList = res;
+      if (this.updatePhrasesDataList) {
         this.categoryList = [];
         this.getCategoryList();
       }
@@ -142,7 +147,7 @@ export class HomeComponent implements OnInit {
     }
 
     this.apiService.addCategory(payload).subscribe(res => {
-      if (res.message == 'success') {
+      if (res) {
         this.categoryList = [];
         this.getCategoryList();
         this.exampleModal.nativeElement.click();
@@ -223,9 +228,6 @@ export class HomeComponent implements OnInit {
     item.subject = item.subject.filter((each, index) => {
       return i != index
     })
-
-    console.log(item.sub);
-    
 
 
      let payload = {

@@ -24,7 +24,7 @@ export class CallStatisticsComponent implements OnInit {
   phraseData: any;
   showMainContent: boolean = false;
   verificationType: any = 'verification failed';
-  PieChart = [];
+  PieChart: any;
   chartDataLabel: any[] = [];
   chartDataNumber: any[] = [];
 
