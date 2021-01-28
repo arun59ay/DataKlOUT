@@ -745,9 +745,9 @@ canvas {
     color: #8A8A8A;
 }
 
-.pie_chart_info ul li:nth-child(4) {
+/* .pie_chart_info ul li:nth-child(4) {
     padding-right: 0;
-}
+} */
 
 .pie_chart_info_col p {
     width: calc(100% - 24px);
