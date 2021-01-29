@@ -31,5 +31,9 @@ export const apiConfig = {
      disqualifiedCallList: 'agent_script/',
      questionQualifiedCallList: 'agent_script/',
      questionDisqualifiedCallList: 'agent_script/',
+  },
+
+  qualifiedCall: {
+    qualifiedCallList: 'agent_script/'
   }
 }

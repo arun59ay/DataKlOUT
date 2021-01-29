@@ -10,8 +10,9 @@
     </ul>
   </div>
   <div class="customer_table">
-    <h2 class="customer_table_heading" *ngIf="!product"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{category}}</h2>
-    <h2 class="customer_table_heading" *ngIf="product"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{product}}</h2>
+    <h2 class="customer_table_heading" *ngIf="separate"><span><img class="call_img" src="assets/img/customer_call_icon.png" alt=""></span>Qualified Call List</h2>
+    <h2 class="customer_table_heading" *ngIf="!product && !separate"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{category}}</h2>
+    <h2 class="customer_table_heading" *ngIf="product && !separate"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{product}}</h2>
     <table class="table">
       <thead>
         <tr>

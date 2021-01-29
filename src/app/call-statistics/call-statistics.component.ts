@@ -284,4 +284,8 @@ export class CallStatisticsComponent implements OnInit {
     // console.log("this is question ********", this.chartDataLabel, "/&&&&&&&&", this.chartDataNumber);
   }
 
+  verificationPassed(verificationType){
+    this.router.navigate(['/call-list'], { queryParams: { type: 'separate', verificationType: verificationType } })
+  }
+
 }

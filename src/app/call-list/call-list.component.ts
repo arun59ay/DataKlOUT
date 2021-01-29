@@ -18,6 +18,7 @@ export class CallListComponent implements OnInit {
   category: any;
   verificationType: any;
   product: any;
+  separate: any;
 
 
   constructor(
@@ -28,13 +29,27 @@ export class CallListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(res => {
-      let category: any = res.category;
-      let id: any = res.id;
-      this.category = res.category.split('/')[0];
-      this.verificationType= res.verificationType;
-      this.product= res.product;
-      this.filterData(this.product, this.category);
-      console.log("category =========>", this.category);
+      console.log("category ccccccccccccccc>", res);
+      if (res.type) {
+        this.verificationType = res.verificationType;
+        this.separate = res.type;
+        this.verificationPassList();
+        console.log("category =========>", this.separate, "asdkasyiudas", this.verificationType);
+      } else {
+        let category: any = res.category;
+        let id: any = res.id;
+        this.category = res.category.split('/')[0];
+        this.verificationType = res.verificationType;
+        this.product = res.product;
+        this.filterData(this.product, this.category);
+      }
+    })
+  }
+
+  
+  verificationPassList(){
+    this.apiService.qualifiedCall().subscribe( res => {
+        this.allData = res;
     })
   }
 
@@ -42,8 +57,8 @@ export class CallListComponent implements OnInit {
 
   filterData(product: any, id: any) {
     console.log("this is verifiction type", product, "asdhasdhsajkd,", id);
-    
-    if(this.verificationType == 'verification failed'){
+
+    if (this.verificationType == 'verification failed') {
       this.apiService.disqualifiedCallList(id).subscribe(res => {
         let disqualifiedCallList: any = res
         disqualifiedCallList.forEach((element: any) => {
@@ -59,7 +74,7 @@ export class CallListComponent implements OnInit {
         });
         console.log("alldata", this.allData);
       })
-    }else if( this.verificationType == 'verification passed' ){
+    } else if (this.verificationType == 'verification passed') {
       this.apiService.phraseQualifiedCallList(id).subscribe(res => {
         let disqualifiedCallList: any = res
         disqualifiedCallList.forEach((element: any) => {

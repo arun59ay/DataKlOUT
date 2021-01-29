@@ -78,5 +78,11 @@ export class ApiService {
   questionDisqualifiedCallList(id){
       return this.http.get(this.baseUrl + apiConfig.report.performanceReport + this.userID + '/' + 'question/' + id + '/' + 'disqualified_call_list/')
   }
+  
+  qualifiedCall(){
+    return this.http.get(this.baseUrl + apiConfig.qualifiedCall.qualifiedCallList + this.userID + '/' + 'qualified_call_list')
+  }
+
 
 }
+

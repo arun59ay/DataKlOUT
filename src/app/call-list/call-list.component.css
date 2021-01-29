@@ -1,3 +1,7 @@
 .dashboard_heading > ul > li {
     text-transform: capitalize;
 }
+
+.call_img{
+    margin-right: 10px;
+}

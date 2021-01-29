@@ -19,7 +19,8 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="col_info_col verification_call cursor" (click)="showToggle(true, 'verification passed')">
+        <!-- <div class="col_info_col verification_call cursor" (click)="showToggle(true, 'verification passed')"> -->
+        <div class="col_info_col verification_call cursor" (click)="verificationPassed('verification passed')" >
           <div class="col_info_col_content">
             <p>Verfication Passed</p>
             <h2>{{performanceReport?.varified_calls}}</h2>
