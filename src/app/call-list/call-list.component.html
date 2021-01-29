@@ -4,13 +4,14 @@
   <div class="dashboard_heading">
     <ul>
       <li><a href="#" [routerLink]="['/call-statistics']" routerLinkActive="router-link-active" >Audit Report</a></li>
-      <li *ngIf="!product"><a href="#">{{category}}</a></li>
-      <li *ngIf="product"><a href="#">{{product}} ({{category}})</a></li>
+      <!-- <li *ngIf="!product"><a href="#">{{category}}</a></li>
+      <li *ngIf="product"><a href="#">{{product}} ({{category}})</a></li> -->
       <li><a href="#">{{verificationType}}</a></li>
     </ul>
   </div>
   <div class="customer_table">
-    <h2 class="customer_table_heading"><span><img src="assets/img/customer_call_icon.png" alt=""></span> Calls</h2>
+    <h2 class="customer_table_heading" *ngIf="!product"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{category}}</h2>
+    <h2 class="customer_table_heading" *ngIf="product"><span><img src="assets/img/customer_call_icon.png" alt=""></span> {{product}}</h2>
     <table class="table">
       <thead>
         <tr>

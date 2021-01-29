@@ -27,6 +27,7 @@ export class CallStatisticsComponent implements OnInit {
   PieChart: any;
   chartDataLabel: any[] = [];
   chartDataNumber: any[] = [];
+  question_report_list: any = [];
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -36,6 +37,7 @@ export class CallStatisticsComponent implements OnInit {
     this.apiService.performanceReport().subscribe(res => {
       // console.log(" performance Report", res);
       this.performanceReport = res;
+      this.question_report_list = this.performanceReport.question_report;
 
       for (let key in this.performanceReport.phrase_report) {
         let obj = {
@@ -46,18 +48,6 @@ export class CallStatisticsComponent implements OnInit {
 
         this.phrase_report.push(obj);
       }
-      // console.log(this.phrase_report)
-
-      // this.question_report = this.performanceReport.question_report;
-      // for (let key in this.performanceReport.question_report) {
-      //   let obj = {
-      //     subject: this.performanceReport.question_report,
-      //     failed: this.performanceReport.question_report[key.].failed,
-      //     passed: this.performanceReport.question_report[key].passed
-      //   }
-
-      //   this.question_report.push(obj);
-      // }
 
 
       this.performanceReport.question_report.forEach(element => {
@@ -72,13 +62,8 @@ export class CallStatisticsComponent implements OnInit {
       });
 
 
-      // console.log("<=========this is questions report==========>", this.performanceReport);
-      // console.log("this is questions report", this.question_report);
-
-
       if (res) {
-        this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls;
-        // console.log(this.totalCalls);
+        this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls; 
       }
       this.chartFilterData();
     })
