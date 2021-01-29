@@ -9,3 +9,13 @@
 .pie_chart_info > ul > li{
     cursor: pointer;
 }
+
+.label{
+    font-weight: 600;
+    font-size: 14px;
+    color: #5B5B5B;
+}
+
+.hover{
+    cursor: pointer;
+}

@@ -56,10 +56,10 @@
           </div>
         </li>
       </ul>
-      <div *ngFor="let item of question_report_list">
+      <div *ngFor="let item of question_report_list btn">
         <ul>
-          <div class="my-1 mt-1">{{item?.product}}</div>
-          <li *ngFor="let sub of item?.subject_analysis">
+          <div class="my-1 mt-1 label">{{item?.product}}</div>
+          <li *ngFor="let sub of item?.subject_analysis" class="hover">
             <div class="pie_chart_info_col" *ngIf="sub.passed > 0" (click)="navigate(item?.product, sub?.subject)">
               <div class="pie_chart_color_box"></div>
               <p>{{sub?.subject}}</p>
@@ -81,10 +81,10 @@
           </div>
         </li>
       </ul>
-      <div *ngFor="let item of question_report_list">
+      <div *ngFor="let item of question_report_list btn">
         <ul>
-          <div class="my-1 mt-1">{{item?.product}}</div>
-          <li *ngFor="let sub of item?.subject_analysis">
+          <div class="my-1 mt-1 label">{{item?.product}}</div>
+          <li *ngFor="let sub of item?.subject_analysis" class="hover">
             <div class="pie_chart_info_col" *ngIf="sub.failed > 0" (click)="navigate(item?.product, sub?.subject)">
               <div class="pie_chart_color_box"></div>
               <p>{{sub?.subject}}</p>

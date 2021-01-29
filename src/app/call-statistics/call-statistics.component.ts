@@ -12,10 +12,6 @@ declare var $: any;
 export class CallStatisticsComponent implements OnInit {
 
   mini: boolean = true;
-  // phraseDetails: any = [];
-  // phrasedisqualified: any = [];
-  // questionDetails: any = [];
-  // questiondisqualified: any = [];
   phrase_report: any = [];
   question_report: any = [];
   disqualifiedCallList: any;
@@ -28,6 +24,7 @@ export class CallStatisticsComponent implements OnInit {
   chartDataLabel: any[] = [];
   chartDataNumber: any[] = [];
   question_report_list: any = [];
+  colors: any = [];
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -63,7 +60,7 @@ export class CallStatisticsComponent implements OnInit {
 
 
       if (res) {
-        this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls; 
+        this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls;
       }
       this.chartFilterData();
     })
@@ -73,46 +70,42 @@ export class CallStatisticsComponent implements OnInit {
 
 
   showToggle(toggle: any, name: any) {
-    console.log(name);
-
-
     this.showMainContent = toggle;
     this.verificationType = name;
-    // console.log("verificationType*******", this.verificationType);
     this.chartFilterData();
   }
 
   navigate(product: any, category: any) {
-    console.log(product, category);
+    // console.log(product, category);
 
     let questionData: any[] = [];
     if (category || product) {
       this.apiService.getPhrases().subscribe(res => {
-        console.log("res", res);
+        // console.log("res", res);
         let phrases: any = res
         phrases.forEach((each: any) => {
           if (each.category === product) {
             questionData.push(each)
           }
         })
-        console.log("phrase", questionData);
+        // console.log("phrase", questionData);
         if (questionData && questionData.length) {
-          this.router.navigate(['/call-list'], { queryParams: { category: product, id: questionData[0].id, verificationType: this.verificationType } })
+          this.router.navigate(['/call-list'], { queryParams: { product: questionData[0].product, category: product, id: questionData[0].id, verificationType: this.verificationType } })
         }
       })
       if (category || product) {
         this.apiService.getQuestions().subscribe(res => {
-          console.log("question########3333", res);
+          // console.log("question########3333", res);
           let questions: any = res
           questions.map((each: any) => {
-            console.log("question$$$$$$$", each);
+            // console.log("question$$$$$$$", each);
             each.subject.forEach((element: any) => {
               if (each.product == product && element.split('/')[0] == category) {
                 questionData.push(each);
               }
             });
           })
-          console.log("questions", questionData);
+          // console.log("questions", questionData);
           if (questionData && questionData.length) {
             this.router.navigate(['/call-list'], { queryParams: { product: questionData[0].product, category: category, id: questionData[0].id, verificationType: this.verificationType } })
           }
@@ -120,20 +113,15 @@ export class CallStatisticsComponent implements OnInit {
       }
     }
 
-
-    // console.log(questionData[0].id);
-
   }
 
 
   toggleSidebar() {
     if (this.mini) {
-      //console.log("opening sidebar");
       (<HTMLSelectElement>document.getElementById('nav_sidebar')).style.width = "240px";
       (<HTMLSelectElement>document.getElementById("main")).style.marginLeft = "240px";
       this.mini = false;
     } else {
-      //console.log("closing sidebar");
       (<HTMLSelectElement>document.getElementById("nav_sidebar")).style.width = "58px";
       (<HTMLSelectElement>document.getElementById("main")).style.marginLeft = "58px";
       this.mini = true;
@@ -142,6 +130,9 @@ export class CallStatisticsComponent implements OnInit {
 
   chart() {
     console.log(this.performanceReport);
+    // for (let i = 0; i < this.chartDataLabel.length; i++) {
+    //   this.colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+    // }
     this.PieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
@@ -149,6 +140,8 @@ export class CallStatisticsComponent implements OnInit {
         datasets: [{
           label: 'data first',
           data: this.chartDataNumber,
+          // backgroundColor: this.colors,
+          // borderColor: this.colors,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -239,13 +232,7 @@ export class CallStatisticsComponent implements OnInit {
     })
   }
 
-
-
   chartFilterData() {
-
-    console.log("this is verification +++>", this.verificationType);
-
-
     if (this.verificationType === 'verification failed') {
       this.chartDataLabel = [];
       this.chartDataNumber = [];
@@ -259,17 +246,17 @@ export class CallStatisticsComponent implements OnInit {
         });
       }
 
-      console.log("this is question ********", this.question_report);
 
 
       if (this.question_report && this.question_report.length) {
         this.question_report.map((element: any) => {
           if (element.failed > 0) {
-            this.chartDataLabel.push(element.subject)
+            this.chartDataLabel.push(element.product + ' - ' + element.subject)
             this.chartDataNumber.push(element.failed)
           }
         });
       }
+      console.log("this is question ********", this.question_report);
 
     } else if (this.verificationType === 'verification passed') {
       this.chartDataLabel = [];
@@ -286,7 +273,7 @@ export class CallStatisticsComponent implements OnInit {
       if (this.question_report && this.question_report.length) {
         this.question_report.map((element: any) => {
           if (element.passed > 0) {
-            this.chartDataLabel.push(element.subject)
+            this.chartDataLabel.push(element.product + ' - ' + element.subject)
             this.chartDataNumber.push(element.passed)
           }
         });
