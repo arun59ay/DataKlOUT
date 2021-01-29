@@ -1,13 +1,13 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <div class="dashboard_body flex-container" id="main">
-    <app-home-sidebar (selectedTab)="selectedTab($event)"></app-home-sidebar>
+    <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)"></app-home-sidebar>
     <div>
         <div>
             <div class="dashboard_heading">
                 <ul>
                     <li><a href="#">Audit</a></li>
-                    <li><a href="#">Telecalling Script</a></li>
+                    <li><a href="#">{{selectedTabAduitText}}</a></li>
                 </ul>
             </div>
             <div class="telecalling">

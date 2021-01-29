@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   updatePhrasesDataList: Object;
   exampleModal: any;
   addCategoryName: '';
+  selectedTabAduitText: any = 'Primary Consumable Insights';
 
   constructor(
     private apiService: ApiService
@@ -139,6 +140,10 @@ export class HomeComponent implements OnInit {
     console.log("event************", event);
 
     this.tabSelected = event;
+  }
+
+  selectedTabAduit(event){
+    this.selectedTabAduitText = event;
   }
 
   addCategory(name) {

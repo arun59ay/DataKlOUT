@@ -1,11 +1,13 @@
 <div class="sidebar-container">
-    <div class="sidebar-menu-items " [ngClass]="{activeClass: tabSelected == 'firstTab'}"  (click)="onClick('firstTab')">
+    <div class="sidebar-menu-items " [ngClass]="{activeClass: tabSelected == 'firstTab'}"  (click)="onClick('firstTab', 'Primary Consumable
+    Insights')">
         <div class="sidebar-menu-items-number" [ngClass]="{activeColor: tabSelected == 'firstTab'}">1</div>
         <div class="sidebar-menu-items-name" [ngClass]="{activeColor: tabSelected == 'firstTab'}">Primary Consumable
             Insights</div>
         <img class="sidebar-menu-items-box-next" src="./assets/img/next.png" />
     </div>
-    <div class="sidebar-menu-items  " [ngClass]="{activeClass: tabSelected == 'secondTab'}" (click)="onClick('secondTab')">
+    <div class="sidebar-menu-items  " [ngClass]="{activeClass: tabSelected == 'secondTab'}" (click)="onClick('secondTab', 'Secondary Consumable
+    Insights')">
         <div class="sidebar-menu-items-number" [ngClass]="{activeColor: tabSelected == 'secondTab'}">2</div>
         <div class="sidebar-menu-items-name" [ngClass]="{activeColor: tabSelected == 'secondTab'}">Secondary Consumable
             Insights</div>
