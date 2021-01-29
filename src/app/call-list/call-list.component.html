@@ -4,7 +4,9 @@
   <div class="dashboard_heading">
     <ul>
       <li><a href="#" [routerLink]="['/call-statistics']" routerLinkActive="router-link-active" >Audit Report</a></li>
-      <li><a href="#">{{verificationType}} ({{category}})</a></li>
+      <li *ngIf="!product"><a href="#">{{category}}</a></li>
+      <li *ngIf="product"><a href="#">{{product}} ({{category}})</a></li>
+      <li><a href="#">{{verificationType}}</a></li>
     </ul>
   </div>
   <div class="customer_table">
@@ -34,7 +36,8 @@
             <td data-label="Service">{{item?.product}}</td>
             <td data-label="Feedback">No</td>
             <td data-label="Opportunity">No</td>
-            <td data-label="Customer Intent"><p class="negative">{{item?.intent?.positive | number:'0.1-2'}}</p></td>
+            <td data-label="Customer Intent" *ngIf="item?.intent?.positive"><p class="positive">{{item?.intent?.positive | number:'0.1-2'}}</p></td>
+            <td data-label="Customer Intent" *ngIf="item?.intent?.negative"><p class="negative">{{item?.intent?.negative | number:'0.1-2'}}</p></td>
             <td data-label=""><a href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid={{item?.id}}" target="_blank">Call Insights</a></td>
           </tr>
         </div>

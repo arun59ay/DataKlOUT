@@ -34,7 +34,7 @@ export class CallStatisticsComponent implements OnInit {
     this.toggleSidebar();
 
     this.apiService.performanceReport().subscribe(res => {
-      console.log(" performance Report", res);
+      // console.log(" performance Report", res);
       this.performanceReport = res;
 
       for (let key in this.performanceReport.phrase_report) {
@@ -46,21 +46,39 @@ export class CallStatisticsComponent implements OnInit {
 
         this.phrase_report.push(obj);
       }
-      console.log(this.phrase_report)
+      // console.log(this.phrase_report)
 
-      for (let key in this.performanceReport.question_report) {
-        let obj = {
-          key: key,
-          failed: this.performanceReport.question_report[key].failed,
-          passed: this.performanceReport.question_report[key].passed
-        }
+      // this.question_report = this.performanceReport.question_report;
+      // for (let key in this.performanceReport.question_report) {
+      //   let obj = {
+      //     subject: this.performanceReport.question_report,
+      //     failed: this.performanceReport.question_report[key.].failed,
+      //     passed: this.performanceReport.question_report[key].passed
+      //   }
 
-        this.question_report.push(obj);
-      }
+      //   this.question_report.push(obj);
+      // }
+
+
+      this.performanceReport.question_report.forEach(element => {
+
+        element.subject_analysis.map(each => {
+
+          each.product = element.product;
+          this.question_report.push(each)
+
+        })
+
+      });
+
+
+      // console.log("<=========this is questions report==========>", this.performanceReport);
+      // console.log("this is questions report", this.question_report);
+
 
       if (res) {
         this.totalCalls = this.performanceReport.varified_calls + this.performanceReport.verification_failed_calls;
-        console.log(this.totalCalls);
+        // console.log(this.totalCalls);
       }
       this.chartFilterData();
     })
@@ -75,45 +93,46 @@ export class CallStatisticsComponent implements OnInit {
 
     this.showMainContent = toggle;
     this.verificationType = name;
-    console.log("verificationType*******", this.verificationType);
+    // console.log("verificationType*******", this.verificationType);
     this.chartFilterData();
   }
 
-  navigate(category: any) {
-    console.log(category);
+  navigate(product: any, category: any) {
+    console.log(product, category);
 
     let questionData: any[] = [];
-    if (category) {
+    if (category || product) {
       this.apiService.getPhrases().subscribe(res => {
         console.log("res", res);
         let phrases: any = res
         phrases.forEach((each: any) => {
-          if (each.category === category) {
+          if (each.category === product) {
             questionData.push(each)
           }
         })
         console.log("phrase", questionData);
         if (questionData && questionData.length) {
-          this.router.navigate(['/call-list'], { queryParams: { category: category, id: questionData[0].id, verificationType: this.verificationType } })
+          this.router.navigate(['/call-list'], { queryParams: { category: product, id: questionData[0].id, verificationType: this.verificationType } })
         }
       })
-
-      this.apiService.getQuestions().subscribe(res => {
-        // console.log("question", res);
-        let questions: any = res
-        questions.map((each: any) => {
-          each.subject.forEach((element: any) => {
-            if (element == category) {
-              questionData.push(each);
-            }
-          });
+      if (category || product) {
+        this.apiService.getQuestions().subscribe(res => {
+          console.log("question########3333", res);
+          let questions: any = res
+          questions.map((each: any) => {
+            console.log("question$$$$$$$", each);
+            each.subject.forEach((element: any) => {
+              if (each.product == product && element.split('/')[0] == category) {
+                questionData.push(each);
+              }
+            });
+          })
+          console.log("questions", questionData);
+          if (questionData && questionData.length) {
+            this.router.navigate(['/call-list'], { queryParams: { product: questionData[0].product, category: category, id: questionData[0].id, verificationType: this.verificationType } })
+          }
         })
-        console.log("questions", questionData);
-        if (questionData && questionData.length) {
-          this.router.navigate(['/call-list'], { queryParams: { category: category, id: questionData[0].id, verificationType: this.verificationType } })
-        }
-      })
-
+      }
     }
 
 
@@ -151,7 +170,29 @@ export class CallStatisticsComponent implements OnInit {
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(473, 182, 68, 0.2)',
+            'rgba(482, 498, 14, 0.2)',
+            'rgba(218, 123, 56, 0.2)',
+            'rgba(298, 812, 28, 0.2)',
+            'rgba(38, 392, 387, 0.2)',
+            'rgba(312, 38, 392, 0.2)',
+            'rgba(384, 159, 64, 0.2)',
+            'rgba(30, 472, 83, 0.2)',
+            'rgba(23, 626, 211, 0.2)',
+            'rgba(91, 382, 323, 0.2)',
+            'rgba(73, 958, 423, 0.2)',
+            'rgba(594, 37, 12, 0.2)',
+            'rgba(928, 75, 45, 0.2)',
+            'rgba(047, 362, 74, 0.2)',
+            'rgba(839, 85, 942, 0.2)',
+            'rgba(838, 29, 643, 0.2)',
+            'rgba(929, 293, 502, 0.2)',
+            'rgba(949, 012, 731, 0.2)',
+            'rgba(203, 934, 348, 0.2)',
+            'rgba(203, 208, 348, 0.2)',
+            'rgba(746, 292, 84, 0.2)',
+            'rgba(398, 391, 14, 0.2)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -159,20 +200,43 @@ export class CallStatisticsComponent implements OnInit {
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(473, 182, 68, 1)',
+            'rgba(482, 498, 14, 1)',
+            'rgba(218, 123, 56, 1)',
+            'rgba(298, 812, 28, 1)',
+            'rgba(38, 392, 387, 1)',
+            'rgba(312, 38, 392, 1)',
+            'rgba(384, 159, 64, 1)',
+            'rgba(30, 472, 83, 1)',
+            'rgba(23, 626, 211, 1)',
+            'rgba(91, 382, 323, 1)',
+            'rgba(73, 958, 423, 1)',
+            'rgba(594, 37, 12, 1)',
+            'rgba(928, 75, 45, 1)',
+            'rgba(047, 362, 74, 1)',
+            'rgba(839, 85, 942, 1)',
+            'rgba(838, 29, 643, 1)',
+            'rgba(929, 293, 502, 1)',
+            'rgba(949, 012, 731, 1)',
+            'rgba(203, 934, 348, 1)',
+            'rgba(203, 208, 348, 1)',
+            'rgba(746, 292, 84, 1)',
+            'rgba(398, 391, 14, 1)',
           ],
           borderWidth: 1
         }]
       },
       options: {
         legend: {
+          position: 'right',
           labels: {
-            fontSize: 50,
+            fontSize: 30,
           },
         },
         hover: {
           mode: 'label',
-          onHover: function(e, el) {
+          onHover: function (e, el) {
             $("#pieChart").css("cursor", el[0] ? "pointer" : "default");
           }
         },
@@ -182,8 +246,8 @@ export class CallStatisticsComponent implements OnInit {
           // titleFontSize: 50,
         },
         tooltips: {
-          titleFontSize: 50,
-          bodyFontSize: 50,
+          titleFontSize: 30,
+          bodyFontSize: 30,
           mode: 'label',
         },
       }
@@ -210,10 +274,13 @@ export class CallStatisticsComponent implements OnInit {
         });
       }
 
+      console.log("this is question ********", this.question_report);
+
+
       if (this.question_report && this.question_report.length) {
         this.question_report.map((element: any) => {
           if (element.failed > 0) {
-            this.chartDataLabel.push(element.key)
+            this.chartDataLabel.push(element.subject)
             this.chartDataNumber.push(element.failed)
           }
         });
@@ -234,7 +301,7 @@ export class CallStatisticsComponent implements OnInit {
       if (this.question_report && this.question_report.length) {
         this.question_report.map((element: any) => {
           if (element.passed > 0) {
-            this.chartDataLabel.push(element.key)
+            this.chartDataLabel.push(element.subject)
             this.chartDataNumber.push(element.passed)
           }
         });
@@ -242,5 +309,7 @@ export class CallStatisticsComponent implements OnInit {
 
     }
     this.chart();
+    // console.log("this is question ********", this.chartDataLabel, "/&&&&&&&&", this.chartDataNumber);
   }
+
 }

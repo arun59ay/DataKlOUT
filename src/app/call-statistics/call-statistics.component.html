@@ -56,9 +56,9 @@
           </div>
         </li>
         <li *ngFor="let item of question_report">
-          <div class="pie_chart_info_col" *ngIf="item.passed > 0" (click)="navigate(item.key)">
+          <div class="pie_chart_info_col" *ngIf="item.passed > 0" (click)="navigate(item?.product, item.subject)">
             <div class="pie_chart_color_box"></div>
-            <p>{{item?.key}}</p>
+            <p>{{item?.product}} ({{item?.subject}})</p>
             <h4>{{item?.passed}}</h4>
           </div>
         </li>
@@ -76,9 +76,9 @@
           </div>
         </li>
         <li *ngFor="let item of question_report">
-          <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item.key)">
+          <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item?.product, item.subject)">
             <div class="pie_chart_color_box"></div>
-            <p>{{item?.key}}</p>
+            <p>{{item?.product}} ({{item?.subject}})</p>
             <h4>{{item?.failed}}</h4>
           </div>
         </li>

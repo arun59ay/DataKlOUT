@@ -17,6 +17,7 @@ export class CallListComponent implements OnInit {
   allData: any = [];
   category: any;
   verificationType: any;
+  product: any;
 
 
   constructor(
@@ -31,14 +32,15 @@ export class CallListComponent implements OnInit {
       let id: any = res.id;
       this.category = res.category.split('/')[0];
       this.verificationType= res.verificationType;
-      this.filterData(this.category);
+      this.product= res.product;
+      this.filterData(this.product, this.category);
       console.log("category =========>", this.category);
     })
   }
 
 
 
-  filterData(id: any) {
+  filterData(product: any, id: any) {
     console.log("this is verifiction type", this.verificationType);
     
     if(this.verificationType == 'verification failed'){
@@ -49,7 +51,7 @@ export class CallListComponent implements OnInit {
         });
         console.log("alldata", this.allData);
       })
-      this.apiService.questionDisqualifiedCallList(id).subscribe(res => {
+      this.apiService.questionDisqualifiedCallList(product).subscribe(res => {
         console.log(res);
         let questionCallList: any = res;
         questionCallList.forEach((element: any) => {
@@ -65,7 +67,7 @@ export class CallListComponent implements OnInit {
         });
         console.log("alldata", this.allData);
       })
-      this.apiService.questionQualifiedCallList(id).subscribe(res => {
+      this.apiService.questionQualifiedCallList(product).subscribe(res => {
         console.log(res);
         let questionCallList: any = res;
         questionCallList.forEach((element: any) => {
