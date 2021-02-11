@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
 
 @Component({
@@ -9,6 +8,7 @@ import { HttpClient,HttpHeaders  } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('closebutton') closebutton;
   categoryList: any[] = [];
   addCategoryItems: any;
   categoryName: any;
@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   updatePhrasesDataList: Object;
   exampleModal: any;
   addCategoryName: '';
+  suggestion: '';
+  addSuggestionText: '';
   selectedTabAduitText: any = 'Primary Consumable Insights';
   openingData: any;
   closingData: any;
@@ -34,6 +36,10 @@ export class HomeComponent implements OnInit {
   selectedProductListItem: any;
   checkPointsListItems: any[] = [];
   checkPointsList: any[] = [];
+  pointsList: any[] = [];
+  IsmodelShow: boolean = false;
+  addSuggestionOpenText: any;
+  addSuggestionCloseText: any;
 
   constructor(
     private apiService: ApiService
@@ -332,38 +338,41 @@ export class HomeComponent implements OnInit {
 
   getCheckPoint() {
     this.apiService.getCheckPoint().subscribe(res => {
-      console.log("this is check point list *****", res);
-      let newResponse: any;
-      newResponse = res;
+      
+      this.pointsList = res;
+      console.log("this is check point list *****", this.pointsList);
+      
+      // let newResponse: any;
+      // newResponse = res;
 
-      let newIdGenenration = 1;
-      let newArray = newResponse.map(value => {
-        let newerVersion = []
-        if (value.status.length) {
-          value.status.map(newVal => {
-            if (newVal.found !== true) {
-              newVal["id"] = newIdGenenration;
-              newIdGenenration = newIdGenenration + 1;
-            } else {
-              newerVersion.push(newVal)
-            }
-          }
-          )
-        }
-        value.selected = newerVersion;
-      })
+      // let newIdGenenration = 1;
+      // let newArray = newResponse.map(value => {
+      //   let newerVersion = []
+      //   if (value.status.length) {
+      //     value.status.map(newVal => {
+      //       if (newVal.found !== true) {
+      //         newVal["id"] = newIdGenenration;
+      //         newIdGenenration = newIdGenenration + 1;
+      //       } else {
+      //         newerVersion.push(newVal)
+      //       }
+      //     }
+      //     )
+      //   }
+      //   value.selected = newerVersion;
+      // })
 
-      this.checkPointsList = newResponse;
+      // this.checkPointsList = newResponse;
 
-      this.dropdownSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'item',
-        selectAllText: 'Select All',
-        unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 3,
-        allowSearchFilter: true
-      };
+      // this.dropdownSettings = {
+      //   singleSelection: false,
+      //   idField: 'id',
+      //   textField: 'item',
+      //   selectAllText: 'Select All',
+      //   unSelectAllText: 'UnSelect All',
+      //   itemsShowLimit: 3,
+      //   allowSearchFilter: true
+      // };
 
     })
   }
@@ -401,7 +410,20 @@ export class HomeComponent implements OnInit {
     console.log("this is delete api payload", payload);
   }
 
-  
+  openingModal(suggestion){
+     console.log(suggestion);
+    //  this.IsmodelShow=true
+    // $('#exampleModal').modal('hide');
+    this.closebutton.nativeElement.click();
+    this.addSuggestionOpenText = suggestion;
+  }
+  closingModal(suggestion){
+     console.log(suggestion);
+    //  this.IsmodelShow=true
+    // $('#exampleModal').modal('hide');
+    this.closebutton.nativeElement.click();
+    this.addSuggestionCloseText = suggestion;
+  }
 
 
 }
