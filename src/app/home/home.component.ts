@@ -8,6 +8,7 @@ import { HttpClient,HttpHeaders  } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('openbutton') openbutton;
   @ViewChild('closebutton') closebutton;
   categoryList: any[] = [];
   addCategoryItems: any;
@@ -414,7 +415,7 @@ export class HomeComponent implements OnInit {
      console.log(suggestion);
     //  this.IsmodelShow=true
     // $('#exampleModal').modal('hide');
-    this.closebutton.nativeElement.click();
+    this.openbutton.nativeElement.click();
     this.addSuggestionOpenText = suggestion;
   }
   closingModal(suggestion){

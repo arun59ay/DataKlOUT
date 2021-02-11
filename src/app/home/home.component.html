@@ -30,8 +30,7 @@
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn addRecommendation" data-toggle="modal" data-target="#openingModal"
-                                    (click)="opening()">Add
-                                    Recommendation</button>
+                                    (click)="opening()">Add from Recommendation</button>
 
                                 <!-- add recommendation modal -->
 
@@ -45,7 +44,7 @@
                                             <div class="modal-header openingDataHeader">
                                                 <h5 class="modal-title" id="exampleModalLabel">Add
                                                     Recommendation</h5>
-                                                <button type="button" #closebutton class="close AddRecommendationClose"
+                                                <button type="button" #openbutton class="close AddRecommendationClose"
                                                     data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -71,7 +70,7 @@
 
                             </div>
                             <div class="mt-3 mb-3">
-                                <textarea class="textareaControl" placeholder="type here"
+                                <textarea class="textareaControl" placeholder="type opening/closing script here"
                                     [(ngModel)]="addSuggestionOpenText"></textarea>
                                 <div class="d-flex justify-content-end mt-4">
                                     <button class="btn saveRecommendation">Save</button>
@@ -81,8 +80,7 @@
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="d-flex justify-content-end mt-4">
                                 <button class="btn addRecommendation" data-toggle="modal" data-target="#closingModal"
-                                    (click)="closing()">Add
-                                    Recommendation</button>
+                                    (click)="closing()">Add from Recommendation</button>
 
                                 <!-- add recommendation modal -->
 
@@ -122,7 +120,7 @@
 
                             </div>
                             <div class="mt-3 mb-3">
-                                <textarea class="textareaControl" placeholder="type here"
+                                <textarea class="textareaControl" placeholder="type opening/closing script here"
                                     [(ngModel)]="addSuggestionCloseText"></textarea>
                                 <div class="d-flex justify-content-end mt-4">
                                     <button class="btn saveRecommendation">Save</button>
