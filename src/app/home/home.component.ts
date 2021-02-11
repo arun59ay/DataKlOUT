@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   selectedProductListItem: any;
   checkPointsListItems: any[] = [];
   checkPointsList: any[] = [];
-  pointsList: any[] = [];
+  pointsList: any;
   IsmodelShow: boolean = false;
   addSuggestionOpenText: any;
   addSuggestionCloseText: any;
