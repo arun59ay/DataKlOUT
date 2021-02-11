@@ -83,6 +83,29 @@ export class ApiService {
     return this.http.get(this.baseUrl + apiConfig.qualifiedCall.qualifiedCallList + this.userID + '/' + 'qualified_call_list')
   }
 
+  openingSprint(){
+    return this.http.get(this.baseUrl + apiConfig.sprintSection.openingSprint + this.userID + '/' + 'recommended_script/opening')
+  }
+
+  closingSprint(){
+    return this.http.get(this.baseUrl + apiConfig.sprintSection.openingSprint + this.userID + '/' + 'recommended_script/closing')
+  }
+
+  getCheckPoint(){
+    return this.http.get(this.baseUrl + apiConfig.checkPoint.getCheckPoint + this.userID + '/' + 'product_checkpoint_mapping/')
+  }
+
+  createPoint(payload){
+    return this.http.post(this.baseUrl + apiConfig.checkPoint.addCheckPoint + this.userID + '/' + 'product_checkpoint_mapping/', payload)
+  }
+
+  deletePoint(id){
+    return this.http.delete(this.baseUrl + apiConfig.checkPoint.deleteCheckPoint + this.userID + '/' + 'product_checkpoint_mapping/', id)
+  }
+
+  getProductList(){
+    return this.http.get(this.baseUrl + apiConfig.prductList.getProductList + this.userID + '/' + 'product_list/')
+  }
 
 }
 

@@ -89,3 +89,26 @@
     opacity: 0.6;
 }
 
+.sprintSelect{
+
+}
+
+.checkList{
+    display: flex;
+    align-items: center;
+}
+
+.checkListItems{
+    background: #337ab7;
+    color: #fff;
+    width: 100%;
+    padding: 8px 14px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.deleteIcon{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

@@ -1,7 +1,8 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <div class="dashboard_body flex-container" id="main">
-    <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)"></app-home-sidebar>
+    <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)">
+    </app-home-sidebar>
     <div>
         <div>
             <div class="dashboard_heading">
@@ -18,8 +19,8 @@
                             Curabitur
                             aliquet a enim eu cursus. Quisque interdum finibus odio</div>
                     </div> -->
-                    <div *ngIf="tabSelected === 'firstTab'" class="addCategory" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
-                        Category</div>
+                    <!-- <div *ngIf="tabSelected === 'firstTab'" class="addCategory" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                        Category</div> -->
                     <!-- modal Template -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -50,7 +51,7 @@
 
                 <div *ngIf="tabSelected === 'firstTab'">
                     <!-- criteria first -->
-                    <div class="criteria_container" *ngFor="let item of categoryList; let i = index">
+                    <!-- <div class="criteria_container" *ngFor="let item of categoryList; let i = index">
                         <div class="criteria_heading_content">
                             <label class="container labelStyle">{{item.category}}
                                 <input type="checkbox" checked="checked">
@@ -90,12 +91,74 @@
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+
+                    <!-- start sptrint -->
+
+
+                    <div class="sprintSelect">
+                        <!-- <div class="opern"></div> -->
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" (click)="opening()" id="opening-tab" data-toggle="tab"
+                                    href="#opening" role="tab" aria-controls="opening" aria-selected="true">opening</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" (click)="closing()" id="closing-tab" data-toggle="tab"
+                                    href="#closing" role="tab" aria-controls="closing" aria-selected="false">closing</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" *ngIf="openingData" id="opening" role="tabpanel"
+                                aria-labelledby="opening-tab">
+                                <ul class="list-group mt-3" *ngIf="openingData">
+                                    <li class="list-group-item" *ngFor="let item of openingData">{{item}}</li>
+                                </ul>
+
+                                <div class="mt-5">
+                                    <div class="mt-2" *ngFor="let item of checkPointsList">
+                                        <div>{{item?.product}}</div>
+                                        <ng-multiselect-dropdown [placeholder]="'select list'"
+                                            [settings]="dropdownSettings" [data]="item.status"
+                                            [(ngModel)]="item.selected" (onSelect)="onItemSelect($event,item?.product)"
+                                            (onSelectAll)="onSelectAll($event)" singleSelection='true'>
+                                        </ng-multiselect-dropdown>
+                                        <div class="mt-3">
+                                            <ul class="list-group w-50">
+                                                <li class="list-group-item" *ngFor="let listItem of item.selected">
+                                                    <div class="checkList">
+                                                        <div class="checkListItems">{{listItem.item}}</div>
+                                                        <img class="deleteIcon" (click)="deleteCheckPoints(listItem)" src="./assets/img/delete.png"/>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="tab-pane" *ngIf="closingData" id="closing" role="tabpanel"
+                                aria-labelledby="closing-tab">
+                                <ul class="list-group mt-3" *ngIf="closingData">
+                                    <li class="list-group-item" *ngFor="let item of closingData">{{item}}</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- xxxxxxxxxxxxx -->
+
+
                 </div>
 
                 <!-- Second Tabs -->
                 <div *ngIf="tabSelected === 'secondTab'">
-                    <div class="criteria_container" *ngFor="let item of questionList, let i = index">
+                    <!-- <div class="criteria_container" *ngFor="let item of questionList, let i = index">
                         <div class="criteria_heading_content d-flex align-item-center justify-content-between">
                             <div>
                                 <label class="container labelStyle">{{item?.product}}
@@ -147,7 +210,7 @@
 
                         </div>
 
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

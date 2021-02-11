@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,17 @@ export class HomeComponent implements OnInit {
   exampleModal: any;
   addCategoryName: '';
   selectedTabAduitText: any = 'Primary Consumable Insights';
+  openingData: any;
+  closingData: any;
+  products: any;
+  checkpoints: any[] = [];
+  productList: any;
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+  selectedProductListItem: any;
+  checkPointsListItems: any[] = [];
+  checkPointsList: any[] = [];
 
   constructor(
     private apiService: ApiService
@@ -33,6 +46,17 @@ export class HomeComponent implements OnInit {
 
     // this function is for get questions 
     this.getQuestions();
+
+    // get sprint for opening
+    this.opening();
+
+    // get function for product list api
+    this.getProductList();
+
+    // get check points list
+    this.getCheckPoint();
+
+
   }
 
   // this is get category api function
@@ -142,7 +166,7 @@ export class HomeComponent implements OnInit {
     this.tabSelected = event;
   }
 
-  selectedTabAduit(event){
+  selectedTabAduit(event) {
     this.selectedTabAduitText = event;
   }
 
@@ -235,7 +259,7 @@ export class HomeComponent implements OnInit {
     })
 
 
-     let payload = {
+    let payload = {
       'question_id': item.id,
       'product': item.product,
       'subject': item.subject,
@@ -252,7 +276,7 @@ export class HomeComponent implements OnInit {
 
 
   addQuestion(item) {
-    if(item.addNewQuestion.key){
+    if (item.addNewQuestion.key) {
       item.sub.push(item.addNewQuestion)
     }
     let payload = {
@@ -269,4 +293,115 @@ export class HomeComponent implements OnInit {
     })
 
   }
+
+  opening() {
+    this.apiService.openingSprint().subscribe(res => {
+      console.log(" this is api reponse ", res);
+      this.openingData = res;
+    })
+  }
+
+  closing() {
+    this.apiService.closingSprint().subscribe(res => {
+      console.log(" this is api reponse ", res);
+      this.closingData = res;
+    })
+  }
+
+  getProductList() {
+    this.apiService.getProductList().subscribe(res => {
+      console.log("this is get product list", res);
+      this.productList = res;
+    })
+  }
+
+  onItemSelect(item: any, completeObject) {
+    let payload = {
+      "product": completeObject,
+      "checkpoint": item.item
+    }
+    this.apiService.createPoint(payload).subscribe(res => {
+      // console.log(res);
+    })
+  }
+  onSelectAll(items: any) {
+    this.selectedProductListItem = items;
+    // console.log("this is selected product list items 22222", this.selectedProductListItem);
+
+  }
+
+  getCheckPoint() {
+    this.apiService.getCheckPoint().subscribe(res => {
+      console.log("this is check point list *****", res);
+      let newResponse: any;
+      newResponse = res;
+
+      let newIdGenenration = 1;
+      let newArray = newResponse.map(value => {
+        let newerVersion = []
+        if (value.status.length) {
+          value.status.map(newVal => {
+            if (newVal.found !== true) {
+              newVal["id"] = newIdGenenration;
+              newIdGenenration = newIdGenenration + 1;
+            } else {
+              newerVersion.push(newVal)
+            }
+          }
+          )
+        }
+        value.selected = newerVersion;
+      })
+
+      this.checkPointsList = newResponse;
+
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'item',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 3,
+        allowSearchFilter: true
+      };
+
+    })
+  }
+
+  save(selectedProductListItem, checkpoints) {
+    console.log(this.selectedProductListItem, checkpoints);
+    let payload = {
+      "product": this.selectedProductListItem,
+      "checkpoint": this.checkpoints
+    }
+    this.apiService.createPoint(payload).subscribe(res => {
+      // console.log(res);
+    })
+    // console.log("this is api config", payload);
+  }
+
+  deleteCheckPoints(item) {
+    console.log(item.id);
+
+    let payload = {
+      "map_id": item.id
+    }
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: payload
+    }
+
+    this.apiService.deletePoint(options).subscribe(res => {
+      console.log("this is delete api call for create points", res);
+      this.getCheckPoint();
+    })
+    console.log("this is delete api payload", payload);
+  }
+
+  
+
+
 }

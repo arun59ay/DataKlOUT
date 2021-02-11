@@ -35,5 +35,20 @@ export const apiConfig = {
 
   qualifiedCall: {
     qualifiedCallList: 'agent_script/'
+  },
+
+  sprintSection: {
+    openingSprint: 'agent_script/',
+    closeingSprint: 'agent_script/',
+  },
+  
+  checkPoint: {
+    getCheckPoint: 'agent_script/',
+    addCheckPoint: 'agent_script/',
+    deleteCheckPoint: 'agent_script/',
+  },
+
+  prductList: {
+    getProductList: 'agent_script/'
   }
 }
