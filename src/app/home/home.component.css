@@ -133,7 +133,7 @@
 }
 
 .textareaControl{
-    height: 200px;
+    height: calc(100vh - 380px);
     display: block;
     width: 100%;
     padding: .375rem .75rem;

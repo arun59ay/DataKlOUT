@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { HttpClient,HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +39,8 @@ export class HomeComponent implements OnInit {
   checkPointsList: any[] = [];
   pointsList: any;
   IsmodelShow: boolean = false;
+  foundItems: boolean = false;
+  btnClick: boolean = false;
   addSuggestionOpenText: any;
   addSuggestionCloseText: any;
 
@@ -339,10 +341,10 @@ export class HomeComponent implements OnInit {
 
   getCheckPoint() {
     this.apiService.getCheckPoint().subscribe(res => {
-      
+
       this.pointsList = res;
       console.log("this is check point list *****", this.pointsList);
-      
+
       // let newResponse: any;
       // newResponse = res;
 
@@ -378,53 +380,120 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  save(selectedProductListItem, checkpoints) {
-    console.log(this.selectedProductListItem, checkpoints);
-    let payload = {
-      "product": this.selectedProductListItem,
-      "checkpoint": this.checkpoints
-    }
-    this.apiService.createPoint(payload).subscribe(res => {
-      // console.log(res);
-    })
-    // console.log("this is api config", payload);
-  }
+  // save(selectedProductListItem, checkpoints) {
+  //   console.log(this.selectedProductListItem, checkpoints);
+  //   let payload = {
+  //     "product": this.selectedProductListItem,
+  //     "checkpoint": this.checkpoints
+  //   }
+  //   this.apiService.createPoint(payload).subscribe(res => {
+  //     // console.log(res);
+  //   })
+  //   // console.log("this is api config", payload);
+  // }
 
-  deleteCheckPoints(item) {
-    console.log(item.id);
+  // deleteCheckPoints(item) {
+  //   console.log(item.id);
 
-    let payload = {
-      "map_id": item.id
-    }
+  //   let payload = {
+  //     "map_id": item.id
+  //   }
 
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      body: payload
-    }
+  //   const options = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type': 'application/json'
+  //     }),
+  //     body: payload
+  //   }
 
-    this.apiService.deletePoint(options).subscribe(res => {
-      console.log("this is delete api call for create points", res);
-      this.getCheckPoint();
-    })
-    console.log("this is delete api payload", payload);
-  }
+  //   this.apiService.deletePoint(options).subscribe(res => {
+  //     console.log("this is delete api call for create points", res);
+  //     this.getCheckPoint();
+  //   })
+  //   console.log("this is delete api payload", payload);
+  // }
 
-  openingModal(suggestion){
-     console.log(suggestion);
+  openingModal(suggestion) {
+    console.log(suggestion);
     //  this.IsmodelShow=true
     // $('#exampleModal').modal('hide');
     this.openbutton.nativeElement.click();
     this.addSuggestionOpenText = suggestion;
   }
-  closingModal(suggestion){
-     console.log(suggestion);
+  closingModal(suggestion) {
+    console.log(suggestion);
     //  this.IsmodelShow=true
     // $('#exampleModal').modal('hide');
     this.closebutton.nativeElement.click();
     this.addSuggestionCloseText = suggestion;
   }
 
+  checkedItems(items, products) {
+    console.log(items, products);
+    let payload: any;
+    if (items.id) {
+      payload = {
+        "map_id": items.id
+      }
+      const options = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        }),
+        body: payload
+      }
+      this.apiService.deletePoint(options).subscribe(res => {
+        console.log("this is delete api call for create points", res);
+        this.getCheckPoint();
+      })
+
+    } else {
+      payload = {
+        "product": products.product,
+        "checkpoint": items.item
+      }
+      this.apiService.createPoint(payload).subscribe(res => {
+        this.getCheckPoint();
+        console.log(res);
+      })
+    }
+
+  }
+
+  btnClickConfig(){
+    this.btnClick = !this.btnClick;
+  }
+
+  // save(selectedProductListItem, checkpoints) {
+  //   console.log(this.selectedProductListItem, checkpoints);
+  //   let payload = {
+  //     "product": this.selectedProductListItem,
+  //     "checkpoint": this.checkpoints
+  //   }
+  //   this.apiService.createPoint(payload).subscribe(res => {
+  //     // console.log(res);
+  //   })
+  //   // console.log("this is api config", payload);
+  // }
+
+  // deleteCheckPoints(item) {
+  //   console.log(item.id);
+
+  //   let payload = {
+  //     "map_id": item.id
+  //   }
+
+    // const options = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   }),
+    //   body: payload
+    // }
+
+  //   this.apiService.deletePoint(options).subscribe(res => {
+  //     console.log("this is delete api call for create points", res);
+  //     this.getCheckPoint();
+  //   })
+  //   console.log("this is delete api payload", payload);
+  // }
 
 }

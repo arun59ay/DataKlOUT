@@ -3,7 +3,7 @@
 <div class="dashboard_body flex-container" id="main">
     <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)">
     </app-home-sidebar>
-    <div>
+    <div class="w-100">
         <div>
             <div class="dashboard_heading">
                 <ul>
@@ -139,8 +139,8 @@
 
                     <div>
                         <div class="btnProductGroup">
-                            <button class="btn editProducts">Edit</button>
-                            <button class="btn saveProducts">Save</button>
+                            <button class="btn editProducts" *ngIf="!btnClick" (click)="btnClickConfig()">Edit</button>
+                            <button class="btn saveProducts" *ngIf="btnClick" (click)="btnClickConfig()">Save</button>
                         </div>
                         <table class="table table-bordered">
                             <thead>
@@ -155,15 +155,16 @@
                                 <tr *ngFor="let products of pointsList">
                                     <td>{{products.product}}</td>
                                      <td *ngFor="let items of products.status" class="text-center">
-                                         <img src="../../assets/img/right.png" class="checkIcon" *ngIf="items.found == true" />
-                                         <img src="../../assets/img/cancels.png" class="cancelsIcon" *ngIf="items.found == false" />
-                                     </td>
+                                         <img src="../../assets/img/right.png" class="checkIcon" *ngIf="items.found == true && !btnClick" />
+                                         <img src="../../assets/img/cancels.png" class="cancelsIcon" *ngIf="items.found == false && !btnClick" />
+                                         <input type="checkbox" [(ngModel)]="items.found" (change)="checkedItems(items, products)" *ngIf="btnClick" />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- srpint section two end -->
+                    <!-- sprint section two end -->
 
                 </div>
             </div>
