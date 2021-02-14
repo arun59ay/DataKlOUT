@@ -12,6 +12,7 @@ import { HomeSidebarComponent } from './home/home-sidebar/home-sidebar.component
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TabComponent } from './tab/tab.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CallStatisticsComponent,
     HomeComponent,
     HomeSidebarComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,

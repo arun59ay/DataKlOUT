@@ -1,0 +1,70 @@
+.addRecommendation{
+    background: #72b3ff;
+    color: #fff;
+    font-size: 14px;
+}
+.addRecommendation:hover{
+    opacity: 0.8;
+}
+
+.saveRecommendation{
+    background: #20c145;
+    color: #fff;
+    font-size: 14px;
+}
+
+.saveRecommendation:hover{
+    opacity: 0.8;
+}
+
+.textareaControl{
+    height: calc(100vh - 380px);
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.openingDataHeader{
+    /* background-color: #fff !important; */
+}
+
+.AddRecommendationClose{
+    color: #000 !important;
+}
+
+.addIconRecommBtn{
+    cursor: pointer;
+}
+
+.addIconRecomm{
+   width: 25px;
+   height: 25px;
+}
+
+.checkIcon{
+    width: 25px;
+    height: 25px;
+}
+.cancelsIcon{
+    width: 20px;
+    height: 20px;
+}
+
+
+.modal-header{
+    background: #FF9188;
+    color: #fff;
+}
+
+.modal-title{
+    margin-left: auto;
+}

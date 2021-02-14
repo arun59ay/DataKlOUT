@@ -7,8 +7,8 @@ export const apiConfig = {
   phraseCategoryList: {
      
     getCategoryList: 'agent_script/phrases_category/',
-    createCategoryList: '/agent_script/phrases_category/',
-  
+    createCategoryList: 'agent_script/phrases_category/',
+    deleteCategoryList: 'agent_script/phrases_category/',
   },
 
   newPhrases: {

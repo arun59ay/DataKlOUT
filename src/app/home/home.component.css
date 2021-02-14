@@ -192,3 +192,94 @@
     margin: 20px 0;
     text-align: end;
 }
+
+
+/* css for checkbox */
+
+.checkbox {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 0.5em;
+    font-size: 20px;
+    color: var(--color);
+  
+}
+.checkbox:disabled {
+  color: var(--disabled);
+}
+  
+  .checkbox__control {
+    display: inline-grid;
+    width: 1em;
+    height: 1em;
+    border-radius: 0.25em;
+    border: 0.1em solid currentColor;
+  
+}
+.checkbox__control  > svg {
+  transition: transform 0.1s ease-in 25ms;
+  transform: scale(0);
+  transform-origin: bottom left;
+  color: #008f21;
+}
+  
+  .checkbox__input {
+    display: grid;
+    grid-template-areas: "checkbox";
+  
+
+  }
+  .checkbox__input > * {
+    grid-area: checkbox;
+  }
+
+  .checkbox > input {
+    opacity: 0;
+    width: 1em;
+    height: 1em;
+}
+input{
+    display: none;
+}
+input:focus + .checkbox__control {
+  box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em currentColor;
+}
+
+input:checked + .checkbox__control svg {
+  transform: scale(1);
+}
+
+input:disabled + .checkbox__control {
+  color: var(--disabled);
+}
+
+.tabs{
+    display: flex;
+    border-bottom: 1px solid #72b3ff;
+}
+
+
+.activeTab{
+    border: 1px solid #72b3ff;
+    color: #fff;
+    border-radius: 0px;
+    border-bottom: none;
+    background-color: #72b3ff;
+}
+
+.addCategoryBtn{
+    background: #20c145;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-left: 20px;
+}
+
+.deleteCategoryItem{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

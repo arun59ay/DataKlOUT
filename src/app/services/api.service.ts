@@ -24,6 +24,13 @@ export class ApiService {
     return this.http.post(this.baseUrl + apiConfig.addCategory.addCategory, payload);
   }
 
+  createCategoryItem(payload){
+    return this.http.post(this.baseUrl + apiConfig.phraseCategoryList.createCategoryList, payload)
+  }
+
+  deleteCategoryItem(payload){
+    return this.http.delete(this.baseUrl + apiConfig.phraseCategoryList.deleteCategoryList, payload)
+  }
 
   // api service for phrases servicee
   getPhrases() {
@@ -83,12 +90,10 @@ export class ApiService {
     return this.http.get(this.baseUrl + apiConfig.qualifiedCall.qualifiedCallList + this.userID + '/' + 'qualified_call_list')
   }
 
-  openingSprint(){
-    return this.http.get(this.baseUrl + apiConfig.sprintSection.openingSprint + this.userID + '/' + 'recommended_script/opening')
-  }
-
-  closingSprint(){
-    return this.http.get(this.baseUrl + apiConfig.sprintSection.openingSprint + this.userID + '/' + 'recommended_script/closing')
+  recommendedSprint(script){
+    console.log("script data &&&&&&&", script);
+    
+    return this.http.get(this.baseUrl + apiConfig.sprintSection.openingSprint + this.userID + '/' + 'recommended_script/' + script)
   }
 
   getCheckPoint(){
