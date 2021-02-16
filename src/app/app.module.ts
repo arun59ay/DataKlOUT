@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TabComponent } from './tab/tab.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { TabComponent } from './tab/tab.component';
     HomeComponent,
     HomeSidebarComponent,
     TabComponent,
+    DeleteConfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +34,14 @@ import { TabComponent } from './tab/tab.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgbModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    DeleteConfirmationComponent
+  ],
+  entryComponents: [DeleteConfirmationComponent]
 })
 export class AppModule { }

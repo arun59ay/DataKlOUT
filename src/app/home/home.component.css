@@ -33,7 +33,7 @@
 }
 
 .modal-header{
-    background: #FF9188;
+    background: #72b3ff;
     color: #fff;
 }
 
@@ -191,6 +191,9 @@
 .btnProductGroup{
     margin: 20px 0;
     text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 
@@ -282,4 +285,26 @@ input:disabled + .checkbox__control {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+.addCategoryItemList{
+    font-size: 14px;
+    background: #13be13;
+    color: #fff;
+}
+.addProduct{
+    font-size: 14px;
+    background: rgb(207, 135, 0);
+    color: #fff;
+}
+
+.addCategoryItemList:hover{
+    opacity: 0.8;
+}
+.addProduct:hover{
+    opacity: 0.8;
+}
+
+.addNewProductCategory{
+    display: block;
 }

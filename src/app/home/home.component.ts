@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   tabSelected: any = 'firstTab';
@@ -17,9 +19,12 @@ export class HomeComponent implements OnInit {
   getCategoryListItem: any[] = [];
   tabsSelected: any;
   addCategoryItem: '';
+  addNewProductCategory: '';
+  addNewProduct: '';
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -118,7 +123,7 @@ export class HomeComponent implements OnInit {
     console.log(tab);
     this.tabsSelected = tab;
   }
-  
+
   addCategory(item) {
     console.log(item);
     let payload = {
@@ -126,12 +131,12 @@ export class HomeComponent implements OnInit {
     }
     this.apiService.createCategoryItem(payload).subscribe(res => {
       console.log("category created", res);
-      this.getCategoryListItem = []; 
+      this.getCategoryListItem = [];
       this.getCategoryList();
     })
   }
 
-  deleteCategoryItem(item){
+  deleteCategoryItem(item) {
     let payload = {
       "category_name": item,
     }
@@ -143,12 +148,48 @@ export class HomeComponent implements OnInit {
     }
     this.apiService.deleteCategoryItem(options).subscribe(res => {
       console.log("category created", res);
-      this.getCategoryListItem = []; 
+      this.getCategoryListItem = [];
       this.getCategoryList();
     })
   }
 
 
+  createNewCheckPoint(item) {
 
+    let payload = {
+      "checkpoint": item,
+    }
 
+    this.apiService.addNewCheckPoint(payload).subscribe(res => {
+      console.log(res);
+      this.getCheckPoint();
+    })
+  }
+
+  addProductList(item){
+     
+     let payload = {
+      "product": item,
+     }
+
+     this.apiService.addProductItem(payload).subscribe( res => {
+        console.log(res);
+        this.getCheckPoint();
+     })
+     
+  }
+  confirmDelete(item) {
+    let confirmationModal = this.modalService.open(
+      DeleteConfirmationComponent,
+      {
+        scrollable: true,
+        centered: true,
+        // windowClass: "role-and-program-modal"
+      }
+    );
+
+    confirmationModal.componentInstance.deleteConfirmation.subscribe(res => {
+      this.deleteCategoryItem(item); 
+    });
+  }
 }

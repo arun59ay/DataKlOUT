@@ -1,0 +1,54 @@
+.modal-headers{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    background-color: #72b3ff;
+    color: #fff;
+}
+
+.modal-titles{
+    font-size: 18px;
+    margin: auto;
+}
+
+.close{
+    cursor: pointer;
+}
+
+.delbtn {
+    background-color: #005b94;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 3px 10px;
+      border: none;
+      font-size: 14px;      
+    }
+    .delbtn:active{
+        background-color: none !important;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .delbtn:visited{
+        background-color: #005b94;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .delbtn:hover{
+        background-color: #005b94;
+        color: #ffffff;
+    }
+    
+    .cancel-btn {
+        font-size: 14px;      
+        color: red;
+        text-decoration: none;
+        padding: 10px 26px;
+        background-color: white;
+        border: none;
+      }
+
+      .bottonContainer{
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        text-align: end;
+      }

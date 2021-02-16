@@ -46,6 +46,7 @@ export const apiConfig = {
     getCheckPoint: 'agent_script/',
     addCheckPoint: 'agent_script/',
     deleteCheckPoint: 'agent_script/',
+    createCheckPoints: 'agent_script/',
   },
 
   prductList: {

@@ -17,16 +17,19 @@
                 <div *ngIf="tabSelected === 'firstTab'">
                     <!-- <label class="w-100 text-right">add category from here</label> -->
                     <div class="d-flex align-items-center justify-content-end mb-2">
-                         <input class="d-block" type="text" [(ngModel)]="addCategoryItem" />
-                         <button class="addCategoryBtn" (click)="addCategory(addCategoryItem)">Add Category</button>
+                        <input class="d-block" type="text" placeholder="add category name"
+                            [(ngModel)]="addCategoryItem" />
+                        <button class="addCategoryBtn" (click)="addCategory(addCategoryItem)">Add Category</button>
                     </div>
 
                     <div class="tabs">
                         <div class="px-2 btn" *ngFor="let item of getCategoryListItem"
                             [class.activeTab]="tabsSelected == item?.category" (click)="tabs(item?.category)">
-                            {{item?.category}} 
-                         <img class="deleteCategoryItem" *ngIf="tabsSelected == item?.category" src="assets/img/cancel.png" (click)="deleteCategoryItem(item?.category)" />
+                            {{item?.category}}
+                            <img class="deleteCategoryItem" *ngIf="tabsSelected == item?.category"
+                                (click)="confirmDelete(item?.category)" src="assets/img/cancel.png" />
                         </div>
+                        <!-- (click)="deleteCategoryItem(item)" -->
                     </div>
 
                     <div class="tabs w-100" *ngIf="tabsSelected">
@@ -43,6 +46,18 @@
 
                     <div>
                         <div class="btnProductGroup">
+                            <div class="d-flex justify-content-center align-items-center mr-2">
+                                <input type="text" class="addNewProductCategory mr-2" [(ngModel)]="addNewProduct" />
+                                <button class="btn addProduct" (click)="addProductList(addNewProduct)">Add New
+                                    Product</button>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <input type="text" class="addNewProductCategory mr-2"
+                                    [(ngModel)]="addNewProductCategory" />
+                                <button class="btn addCategoryItemList"
+                                    (click)="createNewCheckPoint(addNewProductCategory)">Add New Product
+                                    Category</button>
+                            </div>
                             <button class="btn editProducts" *ngIf="!btnClick" (click)="btnClickConfig()">Edit</button>
                             <button class="btn saveProducts" *ngIf="btnClick" (click)="btnClickConfig()">Save</button>
                         </div>
@@ -50,9 +65,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Product</th>
-                                    <th scope="col">DOB</th>
-                                    <th scope="col">PAN</th>
-                                    <th scope="col">Mobile</th>
+                                    <th scope="col" *ngFor="let items of pointsList[0].status">{{items?.item}}</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -1,0 +1,25 @@
+<!-- <ng-template #content let-modal> -->
+<!-- <div class="d-flex ft-32 heading-container">
+    <div class="back-arrow-icon ft-16 px-3 py-3">
+        <i class="ms-Icon ms-Icon--Back" aria-hidden="true"></i>
+    </div>
+</div> -->
+<!-- <div class="text-heading pl-4">Delete Confirmation</div> -->
+<div class="modal-headers">
+    <h4 class="modal-titles ft-24 mr-auto">Delete Confirmation</h4>
+    <a class="close" aria-label="Close" (click)="dismissModal()">
+        <span aria-hidden="true">&times;</span>
+    </a>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 m-auto">
+            <h4 class="p-2">Are you sure?</h4>
+            <p class="p-2">Once deleted, it can't be reverted?</p>
+        </div>
+    </div>
+</div>
+<div class="bottonContainer">
+    <button (click)="delete()" class="btn delbtn">Proceed to delete</button>
+    <button (click)="dismissModal()" class=" btn cancel-btn">Cancel</button>
+</div>

@@ -111,6 +111,14 @@ export class ApiService {
   getProductList(){
     return this.http.get(this.baseUrl + apiConfig.prductList.getProductList + this.userID + '/' + 'product_list/')
   }
+  
+  addProductItem(payload){
+    return this.http.post(this.baseUrl + apiConfig.prductList.getProductList + this.userID + '/' + 'product_list/', payload)
+  }
+
+  addNewCheckPoint(payload){
+    return this.http.post(this.baseUrl + apiConfig.checkPoint.createCheckPoints + this.userID + '/' + 'question_checkpoint/', payload)
+  }
 
 }
 
