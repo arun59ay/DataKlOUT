@@ -48,6 +48,9 @@
                     <a class="callInsight" href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid={{item?.id}}" target="_blank">Call Insights</a>
                   </td>
                 </tr>
+                <tr *ngIf="!reportData.length">
+                  <td colspan="6">no data found</td>
+                </tr>
               </tbody>
             </table>
           </div>
