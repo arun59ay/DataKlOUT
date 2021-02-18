@@ -20,7 +20,7 @@
       </div>
       <div class="col-sm-4">
         <!-- <div class="col_info_col verification_call cursor" (click)="showToggle(true, 'verification passed')"> -->
-        <div class="col_info_col verification_call cursor" (click)="verificationPassed('verification passed')" >
+        <div class="col_info_col verification_call cursor" (click)="verificationPassed('verification passed')">
           <div class="col_info_col_content">
             <p>Verfication Passed</p>
             <h2>{{performanceReport?.varified_calls}}</h2>
@@ -70,12 +70,11 @@
         </ul>
       </div>
     </div>
-    <div class="pie_chart_info" *ngIf="!showMainContent">
+    <!-- <div class="pie_chart_info" *ngIf="!showMainContent">
       <h3>Verification Failed</h3>
       <ul>
         <li *ngFor="let item of phrase_report">
           <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item.key)">
-            <!-- [routerLink]="['/call-list']" [queryParams]="{category: item.key}" -->
             <div class="pie_chart_color_box"></div>
             <p>{{item?.key}}</p>
             <h4>{{item?.failed}}</h4>
@@ -94,6 +93,117 @@
           </li>
         </ul>
       </div>
+    </div> -->
+
+    <div class="callStatics">
+      <h4>Verification Failed</h4>
+      <div>
+        <div *ngFor="let item of productWiseReport">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="productName">{{item?.product}}</div>
+            <button class="btn" [ngClass]="item?.showScript ? 'btn-danger' : 'btn-success' " (click)="openScript(item)">{{item?.showScript ? 'close' : 'open'}}</button>
+          </div>
+          <div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">DOB</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">PAN</th>
+                  <!-- <th scope="col"></th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <div > -->
+                <tr *ngFor="let items of item?.calls">
+                  <td>
+                    <div *ngIf="items?.check_point_performance.DateofBirth == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="items?.check_point_performance.DateofBirth == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="items?.check_point_performance.DateofBirth == 'NA'">NA</div>
+                    <!-- <div *ngIf="!items?.check_point_performance.DateofBirth">not</div> -->
+                  </td>
+                  <td>
+                    <div *ngIf="items?.check_point_performance.Email == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="items?.check_point_performance.Email == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="items?.check_point_performance.Email == 'NA'">NA</div>
+                  </td>
+                  <td>
+                    <div *ngIf="items?.check_point_performance.PAN == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="items?.check_point_performance.PAN == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="items?.check_point_performance.PAN == 'NA'">NA</div>
+                  </td>
+                </tr>
+                <!-- </div> -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- sub data table -->
+
+          <div *ngIf="item.showScript"> 
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Agent Name</th>
+                  <th scope="col">Customer Name</th>
+                  <th scope="col">Introduction</th>
+                  <th scope="col">Opening</th>
+                  <th scope="col">Closing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of report">
+                  <td>{{item?.agent}}</td>
+                  <td>{{item?.customer}}</td>
+                  <td>
+                    <div *ngIf="item?.check_point_performance.Introdution == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="item?.check_point_performance.Introdution == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="item?.check_point_performance.Introdution == 'NA'">NA</div>
+                  </td>
+                  <td>
+                    <div *ngIf="item?.check_point_performance.closing == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="item?.check_point_performance.closing == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="item?.check_point_performance.closing == 'NA'">NA</div>
+                  </td>
+                  <td>
+                    <div *ngIf="item?.check_point_performance.opening == true">
+                      <img src="../../assets/img/right.png" class="checkIcon" />
+                    </div>
+                    <div *ngIf="item?.check_point_performance.opening == false">
+                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                    </div>
+                    <div class="text-warning" *ngIf="item?.check_point_performance.opening == 'NA'">NA</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- xxxxxxxxxxxxxx -->
+
+        </div>
+      </div>
     </div>
+
   </div>
 </div>

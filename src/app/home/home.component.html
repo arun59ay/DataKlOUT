@@ -1,108 +1,97 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <div class="dashboard_body flex-container" id="main">
-    <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)">
-    </app-home-sidebar>
-    <div class="w-100">
-        <div>
-            <div class="dashboard_heading">
-                <ul>
-                    <li><a href="#">Audit</a></li>
-                    <li><a href="#">{{selectedTabAduitText}}</a></li>
-                </ul>
+  <app-home-sidebar (selectedTabAduit)="selectedTabAduit($event)" (selectedTab)="selectedTab($event)">
+  </app-home-sidebar>
+  <div class="w-100">
+    <div>
+      <div class="dashboard_heading">
+        <ul>
+          <li><a href="#">Audit</a></li>
+          <li><a href="#">{{selectedTabAduitText}}</a></li>
+        </ul>
+      </div>
+      <div class="telecalling">
+        <div *ngIf="tabSelected === 'firstTab'">
+          <!-- <label class="w-100 text-right">add category from here</label> -->
+          <div class="d-flex align-items-center justify-content-end mb-2">
+            <input class="d-block" type="text" placeholder="add category name" [(ngModel)]="addCategoryItem" />
+            <button class="addCategoryBtn" (click)="addCategory(addCategoryItem)">Add Category</button>
+          </div>
+
+          <div class="tabs">
+            <div class="px-2 btn" *ngFor="let item of getCategoryListItem"
+              [class.activeTab]="tabsSelected == item?.category" (click)="tabs(item?.category)">
+              {{item?.category}}
+              <img class="deleteCategoryItem" *ngIf="tabsSelected == item?.category"
+                (click)="confirmDelete(item?.category)" src="assets/img/cancel.png" />
             </div>
-            <div class="telecalling">
+            <!-- (click)="deleteCategoryItem(item)" -->
+          </div>
 
-
-                <div *ngIf="tabSelected === 'firstTab'">
-                    <!-- <label class="w-100 text-right">add category from here</label> -->
-                    <div class="d-flex align-items-center justify-content-end mb-2">
-                        <input class="d-block" type="text" placeholder="add category name"
-                            [(ngModel)]="addCategoryItem" />
-                        <button class="addCategoryBtn" (click)="addCategory(addCategoryItem)">Add Category</button>
-                    </div>
-
-                    <div class="tabs">
-                        <div class="px-2 btn" *ngFor="let item of getCategoryListItem"
-                            [class.activeTab]="tabsSelected == item?.category" (click)="tabs(item?.category)">
-                            {{item?.category}}
-                            <img class="deleteCategoryItem" *ngIf="tabsSelected == item?.category"
-                                (click)="confirmDelete(item?.category)" src="assets/img/cancel.png" />
-                        </div>
-                        <!-- (click)="deleteCategoryItem(item)" -->
-                    </div>
-
-                    <div class="tabs w-100" *ngIf="tabsSelected">
-                        <app-tab class="w-100" [data]="tabsSelected"></app-tab>
-                    </div>
-
-
-
-                </div>
-
-                <!-- Second Tabs -->
-                <div *ngIf="tabSelected === 'secondTab'">
-
-
-                    <div>
-                        <div class="btnProductGroup">
-                            <div class="d-flex justify-content-center align-items-center mr-2">
-                                <input type="text" class="addNewProductCategory mr-2" [(ngModel)]="addNewProduct" />
-                                <button class="btn addProduct" (click)="addProductList(addNewProduct)">Add New
-                                    Product</button>
-                            </div>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <input type="text" class="addNewProductCategory mr-2"
-                                    [(ngModel)]="addNewProductCategory" />
-                                <button class="btn addCategoryItemList"
-                                    (click)="createNewCheckPoint(addNewProductCategory)">Add New Product
-                                    Category</button>
-                            </div>
-                            <button class="btn editProducts" *ngIf="!btnClick" (click)="btnClickConfig()">Edit</button>
-                            <button class="btn saveProducts" *ngIf="btnClick" (click)="btnClickConfig()">Save</button>
-                        </div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Product</th>
-                                    <th scope="col" *ngFor="let items of pointsList[0].status">{{items?.item}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let products of pointsList">
-                                    <td>{{products.product}}</td>
-                                    <td *ngFor="let items of products.status" class="text-center">
-                                        <img src="../../assets/img/right.png" class="checkIcon"
-                                            *ngIf="items.found == true && !btnClick" />
-                                        <img src="../../assets/img/cancels.png" class="cancelsIcon"
-                                            *ngIf="items.found == false && !btnClick" />
-                                        <!-- <input type="checkbox" [(ngModel)]="items.found" (change)="checkedItems(items, products)" *ngIf="btnClick" /> -->
-
-                                        <label class="checkbox" *ngIf="btnClick">
-                                            <span class="checkbox__input">
-                                                <input type="checkbox" name="checkbox" [(ngModel)]="items.found"
-                                                    (change)="checkedItems(items, products)" *ngIf="btnClick">
-                                                <span class="checkbox__control">
-                                                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'
-                                                        aria-hidden="true" focusable="false">
-                                                        <path fill='none' stroke='currentColor' stroke-width='3'
-                                                            d='M1.73 12.91l6.37 6.37L22.79 4.59' />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                        </label>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- sprint section two end -->
-
-                </div>
-            </div>
+          <div class="tabs w-100" *ngIf="tabsSelected">
+            <app-tab class="w-100" [data]="tabsSelected"></app-tab>
+          </div>
         </div>
+
+        <!-- Second Tabs -->
+        <div *ngIf="tabSelected === 'secondTab'">
+          <div>
+            <div class="btnProductGroup">
+              <div class="d-flex justify-content-center align-items-center mr-2">
+                <input type="text" class="addNewProductCategory mr-2" [(ngModel)]="addNewProduct" />
+                <button class="btn addProduct" (click)="addProductList(addNewProduct)">Add New
+                  Product</button>
+              </div>
+              <div class="d-flex justify-content-center align-items-center">
+                <input type="text" class="addNewProductCategory mr-2" [(ngModel)]="addNewProductCategory" />
+                <button class="btn addCategoryItemList" (click)="createNewCheckPoint(addNewProductCategory)">Add New
+                  Product
+                  Category</button>
+              </div>
+              <button class="btn editProducts" *ngIf="!btnClick" (click)="btnClickConfig()">Edit</button>
+              <button class="btn saveProducts" *ngIf="btnClick" (click)="btnClickConfig()">Save</button>
+            </div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Product</th>
+                  <th scope="col" *ngFor="let items of pointsList[0].status">{{items?.item}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let products of pointsList">
+                  <td>{{products.product}}</td>
+                  <td *ngFor="let items of products.status" class="text-center">
+                    <img src="../../assets/img/right.png" class="checkIcon" *ngIf="items.found == true && !btnClick" />
+                    <img src="../../assets/img/cancels.png" class="cancelsIcon"
+                      *ngIf="items.found == false && !btnClick" />
+                    <!-- <input type="checkbox" [(ngModel)]="items.found" (change)="checkedItems(items, products)" *ngIf="btnClick" /> -->
+
+                    <label class="checkbox" *ngIf="btnClick">
+                      <span class="checkbox__input">
+                        <input type="checkbox" name="checkbox" [(ngModel)]="items.found"
+                          (change)="checkedItems(items, products)" *ngIf="btnClick">
+                        <span class="checkbox__control">
+                          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' aria-hidden="true"
+                            focusable="false">
+                            <path fill='none' stroke='currentColor' stroke-width='3'
+                              d='M1.73 12.91l6.37 6.37L22.79 4.59' />
+                          </svg>
+                        </span>
+                      </span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- sprint section two end -->
+
+        </div>
+      </div>
     </div>
+  </div>
 
 </div>

@@ -51,5 +51,14 @@ export const apiConfig = {
 
   prductList: {
     getProductList: 'agent_script/'
+  },
+
+  srciptReport: {
+    getScriptRepost: 'agent_script/'
+  },
+
+  productWiseCallReport: {
+    getProductReport: 'agent_script/'
   }
+
 }

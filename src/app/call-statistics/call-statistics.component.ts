@@ -25,6 +25,9 @@ export class CallStatisticsComponent implements OnInit {
   chartDataNumber: any[] = [];
   question_report_list: any = [];
   colors: any = [];
+  srciptReport: any;
+  productWiseReport: any;
+  report: any;
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -65,7 +68,11 @@ export class CallStatisticsComponent implements OnInit {
       this.chartFilterData();
     })
 
-  }
+    // function for get product wise call report
+    this.getProductReport();
+
+
+  } 
 
 
 
@@ -286,6 +293,32 @@ export class CallStatisticsComponent implements OnInit {
 
   verificationPassed(verificationType){
     this.router.navigate(['/call-list'], { queryParams: { type: 'separate', verificationType: verificationType } })
+  }
+
+  getProductReport(){
+    this.apiService.getProductWiseReport().subscribe( res => {
+      this.productWiseReport = res;
+      this.productWiseReport.map( each => {
+        each.showScript = false;
+      })
+      console.log("this is product wise report", this.productWiseReport);
+    })
+  }
+  
+  getScriptReport(item){
+    this.apiService.getScriptReport().subscribe( res => {
+       this.srciptReport = res;
+       item.showScript = !item.showScript;
+       this.report = this.srciptReport.analysis;
+       console.log("this is script report", this.srciptReport);
+    })
+  }
+
+  openScript(item){
+
+    // function for get script report 
+    this.getScriptReport(item);
+
   }
 
 }

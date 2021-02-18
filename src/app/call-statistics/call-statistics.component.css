@@ -19,3 +19,29 @@
 .hover{
     cursor: pointer;
 }
+
+.callStatics{
+    margin-top: 4rem;
+}
+
+.checkIcon{
+    width: 25px;
+    height: 25px;
+}
+.cancelsIcon{
+    width: 20px;
+    height: 20px;
+}
+
+.text-warning{
+    color: orange;
+    font-weight: 600;
+}
+
+.productName{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: gray;
+}

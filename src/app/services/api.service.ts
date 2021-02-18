@@ -120,5 +120,13 @@ export class ApiService {
     return this.http.post(this.baseUrl + apiConfig.checkPoint.createCheckPoints + this.userID + '/' + 'question_checkpoint/', payload)
   }
 
+  getScriptReport(){
+    return this.http.get(this.baseUrl + apiConfig.srciptReport.getScriptRepost + this.userID + '/' + 'call_script_report/')
+  }
+
+  getProductWiseReport(){
+    return this.http.get(this.baseUrl + apiConfig.productWiseCallReport.getProductReport + this.userID + '/' + 'productwise_call_list_report/')
+  }
+
 }
 
