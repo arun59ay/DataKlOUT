@@ -8,6 +8,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ReportTabComponent implements OnInit {
   @Input() reportData: Array<any>;
+  projectData: any[] = [];
+  projectDataRes: any[];
 
   constructor(private apiService: ApiService) { }
 

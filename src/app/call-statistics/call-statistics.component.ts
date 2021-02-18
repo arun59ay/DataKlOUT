@@ -13,6 +13,8 @@ export class CallStatisticsComponent implements OnInit {
 
   mini: boolean = true;
   showScript: boolean = false;
+  productTable: boolean = false;
+  reportTable: boolean = false;
   phrase_report: any = [];
   question_report: any = [];
   disqualifiedCallList: any;
@@ -34,6 +36,7 @@ export class CallStatisticsComponent implements OnInit {
   chartData: any[] = [];
   chartDataProductLabel: any[] = [];
   chartDataProductNumber: any[] = [];
+  productWiseReportTableData: any;
 
 
   constructor(private router: Router, private apiService: ApiService) { }
@@ -76,6 +79,8 @@ export class CallStatisticsComponent implements OnInit {
     })
 
     this.getProductReport();
+
+    this.getScriptReport();
 
   }
 
@@ -145,8 +150,7 @@ export class CallStatisticsComponent implements OnInit {
     // for (let i = 0; i < this.chartDataLabel.length; i++) {
     //   this.colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     // }
-    console.log("this is chart &&&&&&&&&&&&", this.chartDataLabel);
-    
+
     this.PieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
@@ -305,33 +309,41 @@ export class CallStatisticsComponent implements OnInit {
   getProductReport() {
     this.apiService.getProductWiseReport().subscribe(res => {
       this.productWiseReport = res;
-      console.log("this is product wise report", this.productWiseReport);
-      
       this.productWiseReport.forEach(element => {
-          
-        // let obj = {
-        //   label: element.product,
-        //   failed: element.failed,
-        // }
-
-        this.chartDataProductLabel.push(element.product)
-        this.chartDataProductNumber.push(element.failed)
-        
-         
+        if(element.failed > 0){
+          this.chartDataProductLabel.push(element.product)
+          this.chartDataProductNumber.push(element.failed)
+        }
       });
 
     })
   }
 
+  getScriptReport() {
+    this.apiService.getScriptReport().subscribe(res => {
+      this.srciptReport = res;
+      this.chartDataProductLabel.push('Calling Script')
+      this.chartDataProductNumber.push(this.srciptReport.failed)
+      this.report = this.srciptReport.analysis;
+    })
+  }
+
 
   openScript(item) {
-    this.report = '';
-    this.apiService.getScriptReport().subscribe( res => {
-      this.srciptReport = res;
-      this.report = this.srciptReport.analysis;
-      this.selectedItem = item;
-      console.log("this is script report", this.srciptReport);
-   })
+    this.productWiseReportTableData = item.calls;
   }
-  
+
+
+
+  calling(itemName, itemValue) {
+
+    if (itemName == 'product') {
+      this.productTable = !this.productTable;
+      this.reportTable = false;
+    } else if (itemName == 'report') {
+      this.reportTable = true;
+      this.productTable = false;
+    }
+  }
+
 }

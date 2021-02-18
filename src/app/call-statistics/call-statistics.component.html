@@ -70,47 +70,76 @@
         </ul>
       </div>
     </div>
-    <!-- <div class="pie_chart_info" *ngIf="!showMainContent">
-      <h3>Verification Failed</h3>
-      <ul>
-        <li *ngFor="let item of phrase_report">
-          <div class="pie_chart_info_col" *ngIf="item.failed > 0" (click)="navigate(item.key)">
-            <div class="pie_chart_color_box"></div>
-            <p>{{item?.key}}</p>
-            <h4>{{item?.failed}}</h4>
-          </div>
-        </li>
-      </ul>
-      <div *ngFor="let item of question_report_list btn">
-        <ul>
-          <div class="my-1 mt-1 label">{{item?.product}}</div>
-          <li *ngFor="let sub of item?.subject_analysis" class="hover">
-            <div class="pie_chart_info_col" *ngIf="sub.failed > 0" (click)="navigate(item?.product, sub?.subject)">
-              <div class="pie_chart_color_box"></div>
-              <p>{{sub?.subject}}</p>
-              <h4>{{sub?.failed}}</h4>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div> -->
 
     <div class="callStatics">
       <h4>Verification Failed</h4>
+
+      <div class="productNameCalling" (click)="calling('product',true)">Calling Script</div>
+
+      <div *ngIf="productTable">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Agent Name</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Introduction</th>
+              <th scope="col">Opening</th>
+              <th scope="col">Closing</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of report">
+              <td>{{item?.agent}}</td>
+              <td>{{item?.customer}}</td>
+              <td>
+                <div *ngIf="item?.check_point_performance.Introdution == true">
+                  <img src="../../assets/img/right.png" class="checkIcon" />
+                </div>
+                <div *ngIf="item?.check_point_performance.Introdution == false">
+                  <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                </div>
+                <div class="text-warning" *ngIf="item?.check_point_performance.Introdution == 'NA'">NA</div>
+              </td>
+              <td>
+                <div *ngIf="item?.check_point_performance.closing == true">
+                  <img src="../../assets/img/right.png" class="checkIcon" />
+                </div>
+                <div *ngIf="item?.check_point_performance.closing == false">
+                  <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                </div>
+                <div class="text-warning" *ngIf="item?.check_point_performance.closing == 'NA'">NA</div>
+              </td>
+              <td>
+                <div *ngIf="item?.check_point_performance.opening == true">
+                  <img src="../../assets/img/right.png" class="checkIcon" />
+                </div>
+                <div *ngIf="item?.check_point_performance.opening == false">
+                  <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+                </div>
+                <div class="text-warning" *ngIf="item?.check_point_performance.opening == 'NA'">NA</div>
+              </td>
+              <td>
+                <a class="callInsight" href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid=c8d7c43d-c502-4e24-8339-790fe7397273" target="_blank">Call Insights</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="mt-3 text-warning">
        
         <h5>Product Name</h5>
 
         <div class="d-flex align-items-center">
           <div *ngFor="let item of productWiseReport">
-            <div class="productName" (click)="openScript(item?.product)" [ngClass]="{'active': item?.product == selectedItem}">{{item?.product}}</div>
+            <!-- <div class="productName" (click)="openScript(item?.product)" [ngClass]="{'active': item?.product == selectedItem}">{{item?.product}}</div> -->
+            <div class="productName" (click)="openScript(item) || calling('report',true)">{{item?.product}}</div>
           </div>
         </div>
-        <div>
-          <app-report-tab [reportData]="report"></app-report-tab>
-        </div>
-
-
+        <div *ngIf="reportTable"> 
+          <app-report-tab *ngIf="productWiseReportTableData" [reportData]="productWiseReportTableData"></app-report-tab>
+        </div>  
       </div>
     </div>
   </div>
