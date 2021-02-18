@@ -12,6 +12,7 @@ declare var $: any;
 export class CallStatisticsComponent implements OnInit {
 
   mini: boolean = true;
+  showScript: boolean = false;
   phrase_report: any = [];
   question_report: any = [];
   disqualifiedCallList: any;
@@ -25,9 +26,15 @@ export class CallStatisticsComponent implements OnInit {
   chartDataNumber: any[] = [];
   question_report_list: any = [];
   colors: any = [];
-  srciptReport: any;
   productWiseReport: any;
+  projectWiseData: any[] = [];
+  srciptReport: any;
   report: any;
+  selectedItem: any;
+  chartData: any[] = [];
+  chartDataProductLabel: any[] = [];
+  chartDataProductNumber: any[] = [];
+
 
   constructor(private router: Router, private apiService: ApiService) { }
 
@@ -68,11 +75,9 @@ export class CallStatisticsComponent implements OnInit {
       this.chartFilterData();
     })
 
-    // function for get product wise call report
     this.getProductReport();
 
-
-  } 
+  }
 
 
 
@@ -140,13 +145,15 @@ export class CallStatisticsComponent implements OnInit {
     // for (let i = 0; i < this.chartDataLabel.length; i++) {
     //   this.colors.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     // }
+    console.log("this is chart &&&&&&&&&&&&", this.chartDataLabel);
+    
     this.PieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
-        labels: this.chartDataLabel,
+        labels: this.chartDataProductLabel,
         datasets: [{
           label: 'data first',
-          data: this.chartDataNumber,
+          data: this.chartDataProductNumber,
           // backgroundColor: this.colors,
           // borderColor: this.colors,
           backgroundColor: [
@@ -291,34 +298,40 @@ export class CallStatisticsComponent implements OnInit {
     // console.log("this is question ********", this.chartDataLabel, "/&&&&&&&&", this.chartDataNumber);
   }
 
-  verificationPassed(verificationType){
+  verificationPassed(verificationType) {
     this.router.navigate(['/call-list'], { queryParams: { type: 'separate', verificationType: verificationType } })
   }
 
-  getProductReport(){
-    this.apiService.getProductWiseReport().subscribe( res => {
+  getProductReport() {
+    this.apiService.getProductWiseReport().subscribe(res => {
       this.productWiseReport = res;
-      this.productWiseReport.map( each => {
-        each.showScript = false;
-      })
       console.log("this is product wise report", this.productWiseReport);
+      
+      this.productWiseReport.forEach(element => {
+          
+        // let obj = {
+        //   label: element.product,
+        //   failed: element.failed,
+        // }
+
+        this.chartDataProductLabel.push(element.product)
+        this.chartDataProductNumber.push(element.failed)
+        
+         
+      });
+
     })
+  }
+
+
+  openScript(item) {
+    this.report = '';
+    this.apiService.getScriptReport().subscribe( res => {
+      this.srciptReport = res;
+      this.report = this.srciptReport.analysis;
+      this.selectedItem = item;
+      console.log("this is script report", this.srciptReport);
+   })
   }
   
-  getScriptReport(item){
-    this.apiService.getScriptReport().subscribe( res => {
-       this.srciptReport = res;
-       item.showScript = !item.showScript;
-       this.report = this.srciptReport.analysis;
-       console.log("this is script report", this.srciptReport);
-    })
-  }
-
-  openScript(item){
-
-    // function for get script report 
-    this.getScriptReport(item);
-
-  }
-
 }

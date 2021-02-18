@@ -15,6 +15,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TabComponent } from './tab/tab.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
+import { ReportTabComponent } from './call-statistics/report-tab/report-tab.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DeleteConfirmationComponent } from './delete-confirmation/delete-confir
     HomeSidebarComponent,
     TabComponent,
     DeleteConfirmationComponent,
+    ReportTabComponent,
   ],
   imports: [
     BrowserModule,

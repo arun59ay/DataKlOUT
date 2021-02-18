@@ -24,19 +24,7 @@
     margin-top: 4rem;
 }
 
-.checkIcon{
-    width: 25px;
-    height: 25px;
-}
-.cancelsIcon{
-    width: 20px;
-    height: 20px;
-}
 
-.text-warning{
-    color: orange;
-    font-weight: 600;
-}
 
 .productName{
     margin-bottom: 20px;
@@ -44,4 +32,24 @@
     font-size: 18px;
     font-weight: 600;
     color: gray;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.productName:hover{
+    opacity: 0.8;
+    background-color: gray;
+    color: #fff;
+}
+
+.active{
+    opacity: 0.8;
+    background-color: gray;
+    color: #fff;
+}
+
+.productName:first-child{
+    margin-left: 0px;
 }

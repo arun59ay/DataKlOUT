@@ -1,0 +1,13 @@
+.checkIcon{
+    width: 25px;
+    height: 25px;
+}
+.cancelsIcon{
+    width: 20px;
+    height: 20px;
+}
+
+.text-warning{
+    color: orange;
+    font-weight: 600;
+}
