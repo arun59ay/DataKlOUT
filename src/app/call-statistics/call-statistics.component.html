@@ -74,7 +74,7 @@
     <div class="callStatics">
       <h4>Verification Failed</h4>
 
-      <div class="productNameCalling" (click)="calling('product',true)">Calling Script</div>
+      <div class="productNameCalling" [class.productNameActive]="productTable" (click)="calling('product',true)">Calling Script</div>
 
       <div *ngIf="productTable">
         <table class="table table-bordered">
@@ -115,7 +115,7 @@
         <div class="d-flex align-items-center">
           <div *ngFor="let item of productWiseReport">
             <!-- <div class="productName" (click)="openScript(item?.product)" [ngClass]="{'active': item?.product == selectedItem}">{{item?.product}}</div> -->
-            <div class="productName" (click)="openScript(item) || calling('report',true)">{{item?.product}}</div>
+            <div class="productName" [ngClass]="{productNameActive: productName == item?.product}" (click)="openScript(item, item?.product) || calling('report',true)">{{item?.product}}</div>
           </div>
         </div>
         <div *ngIf="reportTable"> 

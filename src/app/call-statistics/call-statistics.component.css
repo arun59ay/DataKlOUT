@@ -43,6 +43,11 @@
     background-color: gray;
     color: #fff;
 }
+.productNameActive{
+    opacity: 0.8;
+    background-color: gray;
+    color: #fff !important;
+}
 .productNameCalling{
     margin-bottom: 20px;
     margin-top: 20px;

@@ -39,6 +39,7 @@ export class CallStatisticsComponent implements OnInit {
   productWiseReportTableData: any;
   reportData: any[] = [];
   heading: string[];
+  productName: any;
 
 
   constructor(private router: Router, private apiService: ApiService) { }
@@ -340,8 +341,11 @@ export class CallStatisticsComponent implements OnInit {
   }
 
 
-  openScript(item) {
+  openScript(item, productName) {
     this.productWiseReportTableData = item.calls;
+    this.productName = productName;
+    console.log("this is active tab", this.productName);
+    
   }
 
 
@@ -349,9 +353,11 @@ export class CallStatisticsComponent implements OnInit {
   calling(itemName, itemValue) {
 
     if (itemName == 'product') {
+      this.productName = '';
       this.productTable = !this.productTable;
       this.reportTable = false;
     } else if (itemName == 'report') {
+      // this.productName = '';
       this.reportTable = true;
       this.productTable = false;
     }
