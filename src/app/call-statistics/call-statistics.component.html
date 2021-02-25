@@ -82,9 +82,7 @@
             <tr>
               <th scope="col">Agent Name</th>
               <th scope="col">Customer Name</th>
-              <th scope="col">Introduction</th>
-              <th scope="col">Opening</th>
-              <th scope="col">Closing</th>
+              <th scope="col" *ngFor="let item of reportData">{{item?.keys}}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -92,32 +90,15 @@
             <tr *ngFor="let item of report">
               <td>{{item?.agent}}</td>
               <td>{{item?.customer}}</td>
-              <td>
-                <div *ngIf="item?.check_point_performance.Introdution == true">
+              <td *ngFor="let checkPoints of item?.check_point_performance | keyvalue | reverse">
+                <!-- {{checkPoints.key }} -->
+                <div *ngIf="checkPoints.value ==   true">
                   <img src="../../assets/img/right.png" class="checkIcon" />
                 </div>
-                <div *ngIf="item?.check_point_performance.Introdution == false">
+                <div *ngIf="checkPoints.value == false">
                   <img src="../../assets/img/cancels.png" class="cancelsIcon" />
                 </div>
-                <div class="text-warning" *ngIf="item?.check_point_performance.Introdution == 'NA'">NA</div>
-              </td>
-              <td>
-                <div *ngIf="item?.check_point_performance.closing == true">
-                  <img src="../../assets/img/right.png" class="checkIcon" />
-                </div>
-                <div *ngIf="item?.check_point_performance.closing == false">
-                  <img src="../../assets/img/cancels.png" class="cancelsIcon" />
-                </div>
-                <div class="text-warning" *ngIf="item?.check_point_performance.closing == 'NA'">NA</div>
-              </td>
-              <td>
-                <div *ngIf="item?.check_point_performance.opening == true">
-                  <img src="../../assets/img/right.png" class="checkIcon" />
-                </div>
-                <div *ngIf="item?.check_point_performance.opening == false">
-                  <img src="../../assets/img/cancels.png" class="cancelsIcon" />
-                </div>
-                <div class="text-warning" *ngIf="item?.check_point_performance.opening == 'NA'">NA</div>
+                <div class="text-warning" *ngIf="checkPoints.value == 'NA'">NA</div>
               </td>
               <td>
                 <a class="callInsight" href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid=c8d7c43d-c502-4e24-8339-790fe7397273" target="_blank">Call Insights</a>

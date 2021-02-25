@@ -37,6 +37,8 @@ export class CallStatisticsComponent implements OnInit {
   chartDataProductLabel: any[] = [];
   chartDataProductNumber: any[] = [];
   productWiseReportTableData: any;
+  reportData: any[] = [];
+  heading: string[];
 
 
   constructor(private router: Router, private apiService: ApiService) { }
@@ -325,6 +327,15 @@ export class CallStatisticsComponent implements OnInit {
       this.chartDataProductLabel.push('Calling Script')
       this.chartDataProductNumber.push(this.srciptReport.failed)
       this.report = this.srciptReport.analysis;
+      console.log("this is report data", this.report);
+      this.heading = Object.keys(this.report[0].check_point_performance);
+
+      this.heading.forEach( each => {
+        let obj = {
+          keys: each
+        }
+        this.reportData.push(obj)
+      });
     })
   }
 
