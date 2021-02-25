@@ -6,7 +6,8 @@
     <textarea class="textareaControl" placeholder="type opening/closing script here"
         [(ngModel)]="addSuggestionOpenText"></textarea>
     <div class="d-flex justify-content-end mt-4">
-        <button class="btn saveRecommendation">Save</button>
+        <button class="btn saveRecommendation" (click)="createPhrases(addSuggestionOpenText)">Save</button>
+        <!-- <button class="btn btn-danger" (click)="deletePharses()">deleted btn</button> -->
     </div>
 </div>
 
