@@ -16,6 +16,7 @@ import { TabComponent } from './tab/tab.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { ReportTabComponent } from './call-statistics/report-tab/report-tab.component';
+import { ReversePipe } from './pipe/reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ReportTabComponent } from './call-statistics/report-tab/report-tab.comp
     TabComponent,
     DeleteConfirmationComponent,
     ReportTabComponent,
+    ReversePipe,
   ],
   imports: [
     BrowserModule,

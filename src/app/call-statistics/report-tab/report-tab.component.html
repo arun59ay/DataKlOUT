@@ -1,59 +1,40 @@
+<!-- sub data table -->
 
-        <!-- sub data table -->
-
-        <div class="mt-3" *ngIf="reportData">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Agent Name</th>
-                  <th scope="col">Customer Name</th>
-                  <th scope="col">Date of Birth</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">PAN</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of reportData">
-                  <td>{{item?.agent}}</td>
-                  <td>{{item?.customer}}</td>
-                  <td>
-                    <div *ngIf="item?.check_point_performance.DateofBirth == true">
-                      <img src="../../assets/img/right.png" class="checkIcon" />
-                    </div>
-                    <div *ngIf="item?.check_point_performance.DateofBirth == false">
-                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
-                    </div>
-                    <div class="text-warning" *ngIf="item?.check_point_performance.DateofBirth == 'NA'">NA</div>
-                  </td>
-                  <td>
-                    <div *ngIf="item?.check_point_performance.Email == true">
-                      <img src="../../assets/img/right.png" class="checkIcon" />
-                    </div>
-                    <div *ngIf="item?.check_point_performance.Email == false">
-                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
-                    </div>
-                    <div class="text-warning" *ngIf="item?.check_point_performance.Email == 'NA'">NA</div>
-                  </td>
-                  <td>
-                    <div *ngIf="item?.check_point_performance.PAN == true">
-                      <img src="../../assets/img/right.png" class="checkIcon" />
-                    </div>
-                    <div *ngIf="item?.check_point_performance.PAN == false">
-                      <img src="../../assets/img/cancels.png" class="cancelsIcon" />
-                    </div>
-                    <div class="text-warning" *ngIf="item?.check_point_performance.PAN == 'NA'">NA</div>
-                  </td>
-                  <td>
-                    <a class="callInsight" href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid={{item?.id}}" target="_blank">Call Insights</a>
-                  </td>
-                </tr>
-                <tr *ngIf="!reportData.length">
-                  <td colspan="6">no data found</td>
-                </tr>
-              </tbody>
-            </table>
+<div class="mt-3" *ngIf="reportData">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Agent Name</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col" *ngFor="let item of headingList">{{item?.keys}}</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of reportData">
+        <td>{{item?.agent}}</td>
+        <td>{{item?.customer}}</td>
+        <td *ngFor="let checkPoints of item?.check_point_performance | keyvalue | reverse">
+          <!-- {{checkPoints.key }} -->
+          <div *ngIf="checkPoints.value ==   true">
+            <img src="../../assets/img/right.png" class="checkIcon" />
           </div>
-  
-          <!-- xxxxxxxxxxxxxx -->
-  
+          <div *ngIf="checkPoints.value == false">
+            <img src="../../assets/img/cancels.png" class="cancelsIcon" />
+          </div>
+          <div class="text-warning" *ngIf="checkPoints.value == 'NA'">NA</div>
+        </td>
+        <td>
+          <a class="callInsight"
+            href="http://152.67.25.252:8017/agent-dashboard/?cid=6f11e776-a78f-4c39-b391-473b566063ae&callid={{item?.id}}"
+            target="_blank">Call Insights</a>
+        </td>
+      </tr>
+      <tr *ngIf="!reportData.length">
+        <td colspan="6">no data found</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- xxxxxxxxxxxxxx -->

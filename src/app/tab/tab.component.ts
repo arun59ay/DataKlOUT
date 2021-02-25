@@ -79,25 +79,6 @@ export class TabComponent implements OnInit {
     })
   }
 
-  // deletePharses() {
-
-
-  //   let payload = {
-  //     'id': this.getPhrasesData[0].id
-  //   }
-
-  //   const options = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json'
-  //     }),
-  //     body: payload
-  //   }
-
-  //   this.apiService.deletePhrases(options).subscribe(res => {
-  //     this.getPhrases();
-  //     console.log("this is delete res", res);
-
-  //   })
-  // }
+ 
 
 }
